@@ -23,9 +23,11 @@ class ChangeService {
     }
 
     func getChange(callback: @escaping (Bool, Change?) -> Void) {
-        
+        var request = URLRequest(url: ChangeService.changeUrl)
+        request.httpMethod = "GET"
+
         task?.cancel()
-        task = changeSession.dataTask(with: ChangeService.changeUrl) { (data, response, error) in
+        task = changeSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -37,23 +39,24 @@ class ChangeService {
                     print("er2")
                     return
                 }
-                guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any],
                     let base = responseJSON!["base"] as? String,
-                    let rate = responseJSON!["rate"] as? [String: Double] else {
-                        callback(false, nil)
-                        print("er3")
-                        return
+                    let rates = responseJSON!["rates"] as? [String: Double] else {
+                    callback(false, nil)
+                    print("er3")
+                    return
                 }
-                let change = Change(base: base, rate: rate)
+                let change = Change(base: base, rates: rates)
                 callback(true, change)
             }
         }
         task?.resume()
     }
-    func changeMoney(changeNeed: Double, numberNeedToConvert: Double) -> Double {
-        return numberNeedToConvert * changeNeed
+    func changeMoney(changeNeed: Double, numberNeedToConvert: String) -> Double {
+        let number = Double(numberNeedToConvert)!
+        return number * changeNeed
     }
     func searchRate(chosenCurrency: String, rateData: Change) -> Double {
-        return rateData.rate[chosenCurrency]!
+        return rateData.rates[chosenCurrency]!
     }
 }

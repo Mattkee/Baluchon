@@ -12,7 +12,7 @@ class ChangeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        toggleActivityIndicator(shown: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,26 +24,15 @@ class ChangeViewController: UIViewController {
     @IBOutlet weak var currencyToConvert: UITextField!
     @IBOutlet weak var convertedCurrency: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    var numberNeedToConvert: Double {
-        guard currencyToConvert == nil else {
-            return 0
-        }
-        if let number = currencyToConvert.text {
-            return Double(number)!
-        }
-        return 0
-    }
 
     @IBAction func convertButton(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
-        
         
         ChangeService.shared.getChange { (success, change) in
             self.toggleActivityIndicator(shown: false)
             if success, let change = change {
                let reference = ChangeService.shared.searchRate(chosenCurrency: "USD", rateData: change)
-                let result = ChangeService.shared.changeMoney(changeNeed: reference, numberNeedToConvert: self.numberNeedToConvert)
+                let result = ChangeService.shared.changeMoney(changeNeed: reference, numberNeedToConvert: self.currencyToConvert.text!)
                 self.update(resultChange: result)
             } else {
                // self.presentAlert()

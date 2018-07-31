@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Change {
+struct Change {
     var base : String
-    var rate : [String: Double]
+    var rates : [String: Double]
 
-    init(base: String, rate: [String: Double]) {
+    init(base: String, rates: [String: Double]) {
         self.base = base
-        self.rate = rate
+        self.rates = rates
     }
 }
