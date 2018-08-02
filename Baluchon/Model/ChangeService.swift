@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol DisplayAlert {
+    func showAlert(title: String, message: String)
+}
+
 class ChangeService {
     static var shared = ChangeService()
     private init() {}
@@ -39,15 +43,13 @@ class ChangeService {
                     print("er2")
                     return
                 }
-                guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any],
-                    let base = responseJSON!["base"] as? String,
-                    let rates = responseJSON!["rates"] as? [String: Double] else {
+                do {
+                   let responseJSON = try JSONDecoder().decode(Change.self, from: data)
+                    callback(true, responseJSON)
+                } catch {
                     callback(false, nil)
                     print("er3")
-                    return
                 }
-                let change = Change(base: base, rates: rates)
-                callback(true, change)
             }
         }
         task?.resume()
@@ -55,8 +57,5 @@ class ChangeService {
     func changeMoney(changeNeed: Double, numberNeedToConvert: String) -> Double {
         let number = Double(numberNeedToConvert)!
         return number * changeNeed
-    }
-    func searchRate(chosenCurrency: String, rateData: Change) -> Double {
-        return rateData.rates[chosenCurrency]!
     }
 }

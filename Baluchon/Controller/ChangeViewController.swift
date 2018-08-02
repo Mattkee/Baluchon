@@ -13,6 +13,7 @@ class ChangeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleActivityIndicator(shown: false)
+        displayAlertDelegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,17 +26,33 @@ class ChangeViewController: UIViewController {
     @IBOutlet weak var convertedCurrency: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    var displayAlertDelegate: DisplayAlert?
+//    var isNoNumberEntry: Bool {
+//        if let number = currencyToConvert.text {
+//            if number.isEmpty {
+//                displayAlertDelegate?.showAlert(title: "pas de nombre", message: "Entrez un nombre correct!")
+//                return true
+//            } else if String(number) ==  String(Double(currencyToConvert.text)) {
+//                displayAlertDelegate?.showAlert(title: "nombre incorrect", message: "Entrez un nombre correct!")
+//                return true
+//            }
+//        }
+//        return false
+//    }
+
     @IBAction func convertButton(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
-        
+//        guard !isNoNumberEntry else {
+//            toggleActivityIndicator(shown: false)
+//            return
+//        }
         ChangeService.shared.getChange { (success, change) in
             self.toggleActivityIndicator(shown: false)
-            if success, let change = change {
-               let reference = ChangeService.shared.searchRate(chosenCurrency: "USD", rateData: change)
-                let result = ChangeService.shared.changeMoney(changeNeed: reference, numberNeedToConvert: self.currencyToConvert.text!)
+            if success {
+                let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates.usd)!, numberNeedToConvert: self.currencyToConvert.text!)
                 self.update(resultChange: result)
             } else {
-               // self.presentAlert()
+                self.showAlert(title: "Echec Appel réseau", message: "refaire un essai")
                 print("ok")
             }
         }
@@ -50,3 +67,12 @@ class ChangeViewController: UIViewController {
     }
 }
 
+// MARK: - Alert Management
+extension ChangeViewController: DisplayAlert {
+    func showAlert(title: String, message: String) {
+        let alerteVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alerteVC.addAction(action)
+        present(alerteVC, animated: true, completion: nil)
+    }
+}
