@@ -44,8 +44,8 @@ class ChangeService {
                     return
                 }
                 do {
-                   let responseJSON = try JSONDecoder().decode(Change.self, from: data)
-                    callback(true, responseJSON)
+                   let change = try JSONDecoder().decode(Change.self, from: data)
+                    callback(true, change)
                 } catch {
                     callback(false, nil)
                     print("er3")

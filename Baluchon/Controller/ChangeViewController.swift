@@ -49,7 +49,7 @@ class ChangeViewController: UIViewController {
         ChangeService.shared.getChange { (success, change) in
             self.toggleActivityIndicator(shown: false)
             if success {
-                let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates.usd)!, numberNeedToConvert: self.currencyToConvert.text!)
+                let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates["USD"])!, numberNeedToConvert: self.currencyToConvert.text!)
                 self.update(resultChange: result)
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "refaire un essai")
