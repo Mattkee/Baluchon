@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF1338F221143AF6004D60E3 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1338F121143AF6004D60E3 /* Money.swift */; };
+		AF1338F82114FA1D004D60E3 /* FirstPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1338F72114FA1D004D60E3 /* FirstPickerViewController.swift */; };
 		AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F00E2109D4E90076F295 /* ChangeService.swift */; };
 		AF89F011210A6C6D0076F295 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F010210A6C6D0076F295 /* Change.swift */; };
 		AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF1338F121143AF6004D60E3 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		AF1338F72114FA1D004D60E3 /* FirstPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPickerViewController.swift; sourceTree = "<group>"; };
 		AF89F00E2109D4E90076F295 /* ChangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeService.swift; sourceTree = "<group>"; };
 		AF89F010210A6C6D0076F295 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
 		AFBEDA272105CE37009DC033 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */,
+				AF1338F72114FA1D004D60E3 /* FirstPickerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 			children = (
 				AF89F00E2109D4E90076F295 /* ChangeService.swift */,
 				AF89F010210A6C6D0076F295 /* Change.swift */,
+				AF1338F121143AF6004D60E3 /* Money.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,6 +180,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */,
+				AF1338F82114FA1D004D60E3 /* FirstPickerViewController.swift in Sources */,
+				AF1338F221143AF6004D60E3 /* Money.swift in Sources */,
 				AF89F011210A6C6D0076F295 /* Change.swift in Sources */,
 				AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */,
 				AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */,

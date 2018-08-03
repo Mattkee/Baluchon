@@ -54,57 +54,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hbZ-bO-qsu">
-                                <rect key="frame" x="15" y="272" width="345" height="124"/>
+                                <rect key="frame" x="15" y="281" width="345" height="106"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="zn8-YS-1Rt">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHW-mf-mxX">
-                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qHN-1s-PMe">
+                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="30"/>
                                                 <state key="normal" title="Euro">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="PickerViewAccess:" destination="XkK-MG-vuP" eventType="touchUpInside" id="Nlz-mq-rTR"/>
+                                                    <segue destination="h5Y-O5-pDi" kind="presentation" identifier="PickerSegue" id="dJq-si-Lp0"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBK-Lz-mIG">
-                                                <rect key="frame" x="172.5" y="0.0" width="172.5" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <state key="normal" title="Dollar">
+                                                <rect key="frame" x="172.5" y="0.0" width="172.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="United States Dollar">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="PickerViewAccess:" destination="XkK-MG-vuP" eventType="touchUpInside" id="9S2-we-LEp"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IfC-y7-sUi">
-                                        <rect key="frame" x="0.0" y="44" width="345" height="36"/>
+                                        <rect key="frame" x="0.0" y="38" width="345" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CnS-mS-J1O">
-                                                <rect key="frame" x="0.0" y="0.0" width="162.5" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="162.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="changeValueOne:" destination="XkK-MG-vuP" eventType="editingChanged" id="wdI-YE-kXQ"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Kp-Ye-eGe">
-                                                <rect key="frame" x="182.5" y="0.0" width="162.5" height="36"/>
+                                                <rect key="frame" x="182.5" y="0.0" width="162.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="changeValueTwo:" destination="XkK-MG-vuP" eventType="editingChanged" id="ofa-vB-Ifu"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oxl-5l-jle">
-                                        <rect key="frame" x="0.0" y="88" width="345" height="36"/>
+                                        <rect key="frame" x="0.0" y="76" width="345" height="30"/>
                                         <subviews>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6O4-8U-3oL">
-                                                <rect key="frame" x="0.0" y="0.0" width="20" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
                                             </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ujr-SY-36c">
-                                                <rect key="frame" x="20" y="0.0" width="325" height="36"/>
+                                                <rect key="frame" x="20" y="0.0" width="325" height="30"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <state key="normal" title="Convertion"/>
+                                                <state key="normal" title="Rafraîchir"/>
                                                 <connections>
-                                                    <action selector="convertButton:" destination="XkK-MG-vuP" eventType="touchUpInside" id="9ge-Ku-Qck"/>
+                                                    <action selector="refreshButton:" destination="XkK-MG-vuP" eventType="touchUpInside" id="vB3-Nb-dlR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -127,9 +139,11 @@
                     <navigationItem key="navigationItem" title="Taux de change" id="L9Q-CO-LRI"/>
                     <connections>
                         <outlet property="activityIndicator" destination="6O4-8U-3oL" id="g3e-jl-o7x"/>
-                        <outlet property="convertChangeButton" destination="Ujr-SY-36c" id="RNP-TZ-k3e"/>
+                        <outlet property="buttonRefresh" destination="Ujr-SY-36c" id="JOU-We-9qF"/>
                         <outlet property="convertedCurrency" destination="7Kp-Ye-eGe" id="yD2-hn-17a"/>
+                        <outlet property="convertedMoney" destination="vBK-Lz-mIG" id="vgl-OB-aWW"/>
                         <outlet property="currencyToConvert" destination="CnS-mS-J1O" id="KlT-f3-CbN"/>
+                        <outlet property="moneyToConvert" destination="qHN-1s-PMe" id="27I-Zg-cIM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gd-Fb-wsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,6 +274,73 @@
             </objects>
             <point key="canvasLocation" x="1001" y="993"/>
         </scene>
+        <!--First Picker View Controller-->
+        <scene sceneID="YBN-PN-oJi">
+            <objects>
+                <viewController id="h5Y-O5-pDi" customClass="FirstPickerViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7DN-Ib-pxy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4p8-Ew-c9z">
+                                <rect key="frame" x="20" y="40" width="335" height="534"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monnaie à convertir" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeG-ii-X1B">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="36"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6z0-yc-XpC">
+                                        <rect key="frame" x="0.0" y="36" width="335" height="216"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="h5Y-O5-pDi" id="wAz-Qx-uNh"/>
+                                            <outlet property="delegate" destination="h5Y-O5-pDi" id="dgE-mW-AWK"/>
+                                        </connections>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monnaie recherché" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfo-nm-qb7">
+                                        <rect key="frame" x="0.0" y="252" width="335" height="36"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TrL-7K-LTD">
+                                        <rect key="frame" x="0.0" y="288" width="335" height="216"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="h5Y-O5-pDi" id="nbV-4N-IX4"/>
+                                            <outlet property="delegate" destination="h5Y-O5-pDi" id="AQp-0N-8fQ"/>
+                                        </connections>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUX-IP-u0c">
+                                        <rect key="frame" x="0.0" y="504" width="335" height="30"/>
+                                        <state key="normal" title="Valider la selection"/>
+                                        <connections>
+                                            <action selector="PickerViewReturn:" destination="h5Y-O5-pDi" eventType="touchUpInside" id="QKS-ZX-EdE"/>
+                                            <segue destination="XkK-MG-vuP" kind="presentation" identifier="retourPickerSegue" id="6dL-6a-aJY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4p8-Ew-c9z" firstAttribute="leading" secondItem="BTW-FE-J2Z" secondAttribute="leading" constant="20" id="fJf-bu-VeB"/>
+                            <constraint firstItem="BTW-FE-J2Z" firstAttribute="trailing" secondItem="4p8-Ew-c9z" secondAttribute="trailing" constant="20" id="nAc-9A-4FD"/>
+                            <constraint firstItem="4p8-Ew-c9z" firstAttribute="top" secondItem="BTW-FE-J2Z" secondAttribute="top" constant="20" id="w0i-YX-lQE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BTW-FE-J2Z"/>
+                    </view>
+                    <connections>
+                        <outlet property="firstPickerView" destination="6z0-yc-XpC" id="T4D-ji-SO1"/>
+                        <outlet property="secondPickerView" destination="TrL-7K-LTD" id="ajN-0R-AGz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1q-SD-6OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1776.8" y="-466.41679160419795"/>
+        </scene>
     </scenes>
     <resources>
         <image name="cloud" width="128" height="88"/>
@@ -268,4 +349,7 @@
         <image name="sunny" width="128" height="128"/>
         <image name="translator" width="25" height="21"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="6dL-6a-aJY"/>
+    </inferredMetricsTieBreakers>
 </document>

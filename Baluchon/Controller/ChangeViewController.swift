@@ -9,11 +9,20 @@
 import UIKit
 
 class ChangeViewController: UIViewController {
+    
+    var money : Money?
+    var change : Change?
+    var nameList = [String]()
+    var labelMoneyToConvert = "Euro"
+    var labelConvertedMoney = "United States Dollar"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        toggleActivityIndicator(shown: false)
         displayAlertDelegate = self
+        moneyToConvert.setTitle(labelMoneyToConvert, for: .normal)
+        convertedMoney.setTitle(labelConvertedMoney, for: .normal)
+
+        refresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,38 +30,51 @@ class ChangeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBOutlet weak var convertChangeButton: UIButton!
+
+    @IBOutlet weak var buttonRefresh: UIButton!
     @IBOutlet weak var currencyToConvert: UITextField!
     @IBOutlet weak var convertedCurrency: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var moneyToConvert: UIButton!
+    @IBOutlet weak var convertedMoney: UIButton!
 
     var displayAlertDelegate: DisplayAlert?
-//    var isNoNumberEntry: Bool {
-//        if let number = currencyToConvert.text {
-//            if number.isEmpty {
-//                displayAlertDelegate?.showAlert(title: "pas de nombre", message: "Entrez un nombre correct!")
-//                return true
-//            } else if String(number) ==  String(Double(currencyToConvert.text)) {
-//                displayAlertDelegate?.showAlert(title: "nombre incorrect", message: "Entrez un nombre correct!")
-//                return true
-//            }
-//        }
-//        return false
-//    }
 
-    @IBAction func convertButton(_ sender: UIButton) {
+    @IBAction func PickerViewAccess(_ sender: Any) {
+        performSegue(withIdentifier: "PickerSegue", sender: nil)
+    }
+    @IBAction func changeValueOne(_ sender: UITextField) {
+        guard sender.hasText else {
+            return
+        }
+        let abreviation = ChangeService.shared.searchMoney(moneyName: convertedMoney.currentTitle!, moneyData: money!)
+        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviation])!, numberNeedToConvert: sender.text!)
+        update(result)
+    }
+
+    @IBAction func changeValueTwo(_ sender: UITextField) {
+        
+    }
+
+    @IBAction func refreshButton(_ sender: UIButton) {
+        refresh()
+    }
+    private func refresh() {
         toggleActivityIndicator(shown: true)
-//        guard !isNoNumberEntry else {
-//            toggleActivityIndicator(shown: false)
-//            return
-//        }
-        ChangeService.shared.getChange { (success, change) in
+        
+        ChangeService.shared.getChange { (success, change, money) in
             self.toggleActivityIndicator(shown: false)
             if success {
-                let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates["USD"])!, numberNeedToConvert: self.currencyToConvert.text!)
-                self.update(resultChange: result)
+                self.money = money
+                self.change = change
+
+                for (_, name) in (self.money?.symbols)! {
+                    self.nameList.append(name)
+                }
+                self.nameList.sort()
+
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "refaire un essai")
+                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
                 print("ok")
             }
         }
@@ -60,9 +82,9 @@ class ChangeViewController: UIViewController {
     
     private func toggleActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
-        convertChangeButton.isHidden = shown
+        buttonRefresh.isHidden = shown
     }
-    private func update(resultChange: Double) {
+    private func update(_ resultChange: Double) {
         convertedCurrency.text = String(resultChange)
     }
 }
@@ -74,5 +96,16 @@ extension ChangeViewController: DisplayAlert {
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alerteVC.addAction(action)
         present(alerteVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Navigation
+extension ChangeViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickerSegue" {
+            let successVC = segue.destination as! FirstPickerViewController
+            successVC.nameList = nameList // On passe la donnée via les propriétés
+        }
     }
 }
