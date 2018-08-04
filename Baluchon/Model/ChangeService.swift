@@ -88,10 +88,24 @@ class ChangeService {
         task?.resume()
     }
     
-    func changeMoney(changeNeed: Double, numberNeedToConvert: String) -> Double {
-        let number = Double(numberNeedToConvert)!
-        return number * changeNeed
+    func changeMoney(changeNeed: Double, numberNeedToConvert: String, moneySelectedValueForOneEuro: Double) -> Double {
+        var number: Double
+        if numberNeedToConvert.last == "." {
+            number = Double(numberNeedToConvert + "0")!
+        } else {
+            guard (Double(numberNeedToConvert) != nil) else {
+                return 0
+            }
+            number = Double(numberNeedToConvert)!
+        }
+        if moneySelectedValueForOneEuro == 1.0 {
+            return number * changeNeed
+        } else {
+            let numberToConvert = number / moneySelectedValueForOneEuro
+            return numberToConvert * changeNeed
+        }
     }
+
     func searchMoney(moneyName: String, moneyData: Money) -> String {
         for (abreviation, name) in moneyData.symbols {
             if moneyName == name {

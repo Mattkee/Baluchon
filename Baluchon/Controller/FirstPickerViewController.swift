@@ -27,14 +27,11 @@ class FirstPickerViewController: UIViewController, UIPickerViewDataSource, UIPic
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func PickerViewReturn(_ sender: UIButton) {
+    @IBAction func selectMoney(_ sender: UIButton) {
         let chosenCurrencyOne = firstPickerView.selectedRow(inComponent: 0)
         moneyOne = nameList[chosenCurrencyOne]
         let chosenCurrencyTwo = secondPickerView.selectedRow(inComponent: 0)
         moneyTwo = nameList[chosenCurrencyTwo]
-
-        performSegue(withIdentifier: "retourPickerSegue", sender: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -54,11 +51,11 @@ class FirstPickerViewController: UIViewController, UIPickerViewDataSource, UIPic
 extension FirstPickerViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "retourPickerSegue" {
+        if segue.identifier == "returnPickerSegue" {
             let successVC = segue.destination as! ChangeViewController
             successVC.labelMoneyToConvert = moneyOne// On passe la donnée via les propriétés
-            let successVCTwo = segue.destination as! ChangeViewController
-            successVCTwo.labelConvertedMoney = moneyTwo
+            successVC.labelConvertedMoney = moneyTwo
+            print("c'est bon")
         }
     }
 }

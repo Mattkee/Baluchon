@@ -30,7 +30,6 @@ class ChangeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
     @IBOutlet weak var buttonRefresh: UIButton!
     @IBOutlet weak var currencyToConvert: UITextField!
     @IBOutlet weak var convertedCurrency: UITextField!
@@ -39,29 +38,41 @@ class ChangeViewController: UIViewController {
     @IBOutlet weak var convertedMoney: UIButton!
 
     var displayAlertDelegate: DisplayAlert?
+//    var delegate: Delegate?
 
-    @IBAction func PickerViewAccess(_ sender: Any) {
-        performSegue(withIdentifier: "PickerSegue", sender: nil)
-    }
     @IBAction func changeValueOne(_ sender: UITextField) {
         guard sender.hasText else {
             return
         }
-        let abreviation = ChangeService.shared.searchMoney(moneyName: convertedMoney.currentTitle!, moneyData: money!)
-        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviation])!, numberNeedToConvert: sender.text!)
-        update(result)
+        let abreviationOne = ChangeService.shared.searchMoney(moneyName: labelConvertedMoney, moneyData: money!)
+        let abreviationTwo = ChangeService.shared.searchMoney(moneyName: labelMoneyToConvert, moneyData: money!)
+        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationOne])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationTwo])!)
+        update(result, convertedCurrency)
     }
 
     @IBAction func changeValueTwo(_ sender: UITextField) {
-        
+        guard sender.hasText else {
+            return
+        }
+        let abreviationOne = ChangeService.shared.searchMoney(moneyName: labelMoneyToConvert, moneyData: money!)
+        let abreviationTwo = ChangeService.shared.searchMoney(moneyName: labelConvertedMoney, moneyData: money!)
+        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationOne])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationTwo])!)
+        update(result, currencyToConvert)
     }
 
     @IBAction func refreshButton(_ sender: UIButton) {
         refresh()
     }
+    
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        convertedCurrency.resignFirstResponder()
+        currencyToConvert.resignFirstResponder()
+    }
+    
     private func refresh() {
         toggleActivityIndicator(shown: true)
-        
+        nameList = [String]()
+
         ChangeService.shared.getChange { (success, change, money) in
             self.toggleActivityIndicator(shown: false)
             if success {
@@ -84,8 +95,8 @@ class ChangeViewController: UIViewController {
         activityIndicator.isHidden = !shown
         buttonRefresh.isHidden = shown
     }
-    private func update(_ resultChange: Double) {
-        convertedCurrency.text = String(resultChange)
+    private func update(_ resultChange: Double,_ textFieldToDisplay: UITextField) {
+        textFieldToDisplay.text = String(resultChange)
     }
 }
 
