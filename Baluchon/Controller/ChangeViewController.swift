@@ -37,7 +37,6 @@ class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var pickerViewConvertedMoney: UIPickerView!
 
     var displayAlertDelegate: DisplayAlert?
-//    var delegate: Delegate?
 
     @IBAction func changeValueOne(_ sender: UITextField) {
         selectedPickerText()
@@ -102,7 +101,7 @@ class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             return
         }
         let abreviationOne = ChangeService.shared.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
-        print(abreviationOne)
+
         let abreviationTwo = ChangeService.shared.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
         
         let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
