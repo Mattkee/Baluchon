@@ -226,7 +226,7 @@
         <!--La météo-->
         <scene sceneID="dZO-ex-2bz">
             <objects>
-                <viewController id="sbY-Nh-4fc" sceneMemberID="viewController">
+                <viewController id="sbY-Nh-4fc" customClass="WeatherViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8U-65-zRY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
