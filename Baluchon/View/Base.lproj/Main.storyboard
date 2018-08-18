@@ -292,6 +292,11 @@
                         <viewLayoutGuide key="safeArea" id="ZpS-kX-K1D"/>
                     </view>
                     <navigationItem key="navigationItem" title="La météo" id="CTP-Po-ah6"/>
+                    <connections>
+                        <outlet property="cityLabel" destination="U2a-ix-KFl" id="N3w-0C-mXJ"/>
+                        <outlet property="temperatureLabel" destination="1Yn-nb-vvu" id="NkH-BO-OCy"/>
+                        <outlet property="weatherImage" destination="tJ2-hC-E5P" id="y9b-Oo-D53"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MhF-gW-zRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

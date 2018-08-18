@@ -12,7 +12,11 @@ class WeatherService {
     static var shared = WeatherService()
     private init() {}
 
-    private static let WeatherUrl = URL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition,location.city%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22New%20York%22)%20and%20u%20%3D'c'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys")!
+    var weatherImage = [WeatherIcon]()
+    var weatherCode = [String]()
+    
+    private let fixedUrl = "https://query.yahooapis.com/v1/public/yql?q="
+    private let dynamicUrl = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"new york\" or text=\"quimper\") and u='c'"
 
     private var task : URLSessionDataTask?
     
@@ -22,8 +26,10 @@ class WeatherService {
         self.weatherSession = weatherSession
     }
     
-    func getWeather(callback: @escaping (Bool, Weather?, WeatherIcon?) -> Void) {
-        var request = URLRequest(url: WeatherService.WeatherUrl)
+    func getWeather(callback: @escaping (Bool, Weather?, [WeatherIcon]?) -> Void) {
+        let finalUrl = fixedUrl + dynamicUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics)! + "&format=json"
+        print(finalUrl)
+        var request = URLRequest(url: URL(string: finalUrl)!)
         request.httpMethod = "GET"
         
         task?.cancel()
@@ -41,25 +47,19 @@ class WeatherService {
                 }
                 guard let weather = try? JSONDecoder().decode(Weather.self, from: data) else {
                     callback(false, nil, nil)
+                    print("erreur data")
                     return
                 }
-                self.getWeatherIcon(weather: weather) { (weatherIcon) in
-                    guard let weatherIcon = weatherIcon else {
-                        callback(false, nil, nil)
-                        return
-                    }
-                    callback(true, weather, weatherIcon)
-                }
+                callback(true, weather, self.weatherImage)
             }
         }
         task?.resume()
     }
-    func getWeatherIcon(weather: Weather, completionHandler: @escaping ((WeatherIcon?) -> Void)) {
-        let weatherNumber = weather.code
-        let iconUrl = URL(string: "http://l.yimg.com/a/i/us/we/52/\(weatherNumber).gif")!
+    func getWeatherIcon(weather: Weather, code: String, completionHandler: @escaping ((WeatherIcon?) -> Void)) {
+        let iconUrl = URL(string: "http://l.yimg.com/a/i/us/we/52/\(code).gif")!
         var request = URLRequest(url: iconUrl)
         request.httpMethod = "GET"
-        
+
         task?.cancel()
         task = weatherSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
@@ -73,15 +73,17 @@ class WeatherService {
                     print("er2")
                     return
                 }
-                do {
-                    let weatherIcon = try JSONDecoder().decode(WeatherIcon.self, from: data)
-                    completionHandler(weatherIcon)
-                } catch {
-                    completionHandler(nil)
-                    print("er3")
-                }
+                let weatherIcon = WeatherIcon(weatherImage: data)
+                completionHandler(weatherIcon)
             }
         }
         task?.resume()
+    }
+    func weatherIcon(_ weather: Weather) {
+        for city in weather.query.results.channel {
+            self.getWeatherIcon (weather: weather, code: city.item.condition.code) { (WeatherIcon) in
+                
+            }
+        }
     }
 }

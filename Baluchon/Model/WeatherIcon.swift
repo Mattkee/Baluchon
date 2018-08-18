@@ -10,7 +10,7 @@ import Foundation
 
 struct WeatherIcon: Decodable {
     var weatherImage: Data
-
+    
     init(weatherImage: Data) {
         self.weatherImage = weatherImage
     }
