@@ -8,26 +8,18 @@
 
 import UIKit
 
-class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ChangeViewController: UIViewController {
     
+    // MARK: - Properties
     var money : Money?
     var change : Change?
     var nameList = [String]()
     var labelMoneyToConvert = "Euro"
     var labelConvertedMoney = "United States Dollar"
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        displayAlertDelegate = self
+    var displayAlertDelegate: DisplayAlert?
 
-        refresh()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    // MARK: - Outlets
     @IBOutlet weak var buttonRefresh: UIButton!
     @IBOutlet weak var currencyToConvert: UITextField!
     @IBOutlet weak var convertedCurrency: UITextField!
@@ -36,7 +28,90 @@ class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var pickerViewMoneyToConvert: UIPickerView!
     @IBOutlet weak var pickerViewConvertedMoney: UIPickerView!
 
-    var displayAlertDelegate: DisplayAlert?
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        displayAlertDelegate = self
+        refresh()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+// MARK: - Network call action
+extension ChangeViewController {
+    private func refresh() {
+        toggleActivityIndicator(shown: true)
+        nameList = [String]()
+        
+        ChangeService.shared.getChange { (success, change, money) in
+            self.toggleActivityIndicator(shown: false)
+            
+            if success {
+                self.money = money
+                self.change = change
+                
+                for (_, name) in (self.money?.symbols)! {
+                    self.nameList.append(name)
+                }
+                self.nameList.sort()
+                self.pickerViewMoneyToConvert.reloadComponent(0)
+                self.pickerViewConvertedMoney.reloadComponent(0)
+                self.pickerViewMoneyToConvert.selectRow(self.nameList.index(of: "Euro")!, inComponent: 0, animated: false)
+                self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
+                
+            } else {
+                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                print("ok")
+            }
+        }
+    }
+
+    private func toggleActivityIndicator(shown: Bool) {
+        activityIndicator.isHidden = !shown
+        buttonRefresh.isHidden = shown
+        secondActivityIndicator.isHidden = !shown
+        pickerViewMoneyToConvert.isHidden = shown
+        pickerViewConvertedMoney.isHidden = shown
+    }
+}
+// MARK: - Display preparation and result
+extension ChangeViewController {
+    private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _
+        moneyData: Money, _ sender: UITextField) {
+        guard sender.hasText else {
+            return
+        }
+        let abreviationOne = ChangeService.shared.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
+        
+        let abreviationTwo = ChangeService.shared.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
+        
+        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
+        let textField : UITextField
+        if sender == convertedCurrency {
+            textField = currencyToConvert
+        } else {
+            textField = convertedCurrency
+        }
+        update(result, textField)
+    }
+    
+    private func selectedPickerText() {
+        let chosenCurrencyOne = pickerViewMoneyToConvert.selectedRow(inComponent: 0)
+        labelMoneyToConvert = nameList[chosenCurrencyOne]
+        let chosenCurrencyTwo = pickerViewConvertedMoney.selectedRow(inComponent: 0)
+        labelConvertedMoney = nameList[chosenCurrencyTwo]
+    }
+    
+    private func update(_ resultChange: Double,_ textFieldToDisplay: UITextField) {
+        textFieldToDisplay.text = String(resultChange)
+    }
+}
+
+// MARK: - Actions
+extension ChangeViewController {
 
     @IBAction func changeValueOne(_ sender: UITextField) {
         selectedPickerText()
@@ -51,11 +126,18 @@ class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func refreshButton(_ sender: UIButton) {
         refresh()
     }
-    
+}
+
+// MARK: - Keyboard
+extension ChangeViewController {
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         convertedCurrency.resignFirstResponder()
         currencyToConvert.resignFirstResponder()
     }
+}
+
+// MARK: - PickerView
+extension ChangeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -67,70 +149,6 @@ class ChangeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.nameList[row]
-    }
-
-    private func refresh() {
-        toggleActivityIndicator(shown: true)
-        nameList = [String]()
-
-        ChangeService.shared.getChange { (success, change, money) in
-            self.toggleActivityIndicator(shown: false)
-            
-            if success {
-                self.money = money
-                self.change = change
-
-                for (_, name) in (self.money?.symbols)! {
-                    self.nameList.append(name)
-                }
-                self.nameList.sort()
-                self.pickerViewMoneyToConvert.reloadComponent(0)
-                self.pickerViewConvertedMoney.reloadComponent(0)
-                self.pickerViewMoneyToConvert.selectRow(self.nameList.index(of: "Euro")!, inComponent: 0, animated: false)
-                self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
-
-            } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
-                print("ok")
-            }
-        }
-    }
-    private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _
-        moneyData: Money, _ sender: UITextField) {
-        guard sender.hasText else {
-            return
-        }
-        let abreviationOne = ChangeService.shared.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
-
-        let abreviationTwo = ChangeService.shared.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
-        
-        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
-        let textField : UITextField
-        if sender == convertedCurrency {
-            textField = currencyToConvert
-        } else {
-            textField = convertedCurrency
-        }
-        update(result, textField)
-    }
-
-    private func selectedPickerText() {
-        let chosenCurrencyOne = pickerViewMoneyToConvert.selectedRow(inComponent: 0)
-        labelMoneyToConvert = nameList[chosenCurrencyOne]
-        let chosenCurrencyTwo = pickerViewConvertedMoney.selectedRow(inComponent: 0)
-        labelConvertedMoney = nameList[chosenCurrencyTwo]
-    }
-
-    private func toggleActivityIndicator(shown: Bool) {
-        activityIndicator.isHidden = !shown
-        buttonRefresh.isHidden = shown
-        secondActivityIndicator.isHidden = !shown
-        pickerViewMoneyToConvert.isHidden = shown
-        pickerViewConvertedMoney.isHidden = shown
-    }
-
-    private func update(_ resultChange: Double,_ textFieldToDisplay: UITextField) {
-        textFieldToDisplay.text = String(resultChange)
     }
 }
 

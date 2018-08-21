@@ -10,6 +10,7 @@
 		AF1338F221143AF6004D60E3 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1338F121143AF6004D60E3 /* Money.swift */; };
 		AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F00E2109D4E90076F295 /* ChangeService.swift */; };
 		AF89F011210A6C6D0076F295 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F010210A6C6D0076F295 /* Change.swift */; };
+		AF9DBDED212AF4AA001778D5 /* weatherImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9DBDEC212AF4AA001778D5 /* weatherImage.swift */; };
 		AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */; };
 		AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */; };
 		AFBEDA302105CE37009DC033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBEDA2E2105CE37009DC033 /* Main.storyboard */; };
@@ -18,13 +19,13 @@
 		AFE205D02125D61600249CC6 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE205CF2125D61600249CC6 /* WeatherViewController.swift */; };
 		AFE205D22125D68100249CC6 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE205D12125D68100249CC6 /* WeatherService.swift */; };
 		AFE205D42125D99300249CC6 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE205D32125D99300249CC6 /* Weather.swift */; };
-		AFE205D62125DA9100249CC6 /* WeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE205D52125DA9100249CC6 /* WeatherIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF1338F121143AF6004D60E3 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		AF89F00E2109D4E90076F295 /* ChangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeService.swift; sourceTree = "<group>"; };
 		AF89F010210A6C6D0076F295 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
+		AF9DBDEC212AF4AA001778D5 /* weatherImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherImage.swift; sourceTree = "<group>"; };
 		AFBEDA272105CE37009DC033 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewController.swift; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		AFE205CF2125D61600249CC6 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		AFE205D12125D68100249CC6 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		AFE205D32125D99300249CC6 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		AFE205D52125DA9100249CC6 /* WeatherIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +100,7 @@
 			children = (
 				AFBEDA2E2105CE37009DC033 /* Main.storyboard */,
 				AFBEDA332105CE39009DC033 /* LaunchScreen.storyboard */,
+				AF9DBDEC212AF4AA001778D5 /* weatherImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,7 +113,6 @@
 				AF1338F121143AF6004D60E3 /* Money.swift */,
 				AFE205D12125D68100249CC6 /* WeatherService.swift */,
 				AFE205D32125D99300249CC6 /* Weather.swift */,
-				AFE205D52125DA9100249CC6 /* WeatherIcon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,8 +192,8 @@
 				AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */,
 				AFE205D02125D61600249CC6 /* WeatherViewController.swift in Sources */,
 				AF1338F221143AF6004D60E3 /* Money.swift in Sources */,
-				AFE205D62125DA9100249CC6 /* WeatherIcon.swift in Sources */,
 				AF89F011210A6C6D0076F295 /* Change.swift in Sources */,
+				AF9DBDED212AF4AA001778D5 /* weatherImage.swift in Sources */,
 				AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */,
 				AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */,
 				AFE205D22125D68100249CC6 /* WeatherService.swift in Sources */,

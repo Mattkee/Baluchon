@@ -11,7 +11,6 @@ import UIKit
 class WeatherViewController: UIViewController {
 
     var weather: Weather?
-    var weatherIcon: [WeatherIcon]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +28,9 @@ class WeatherViewController: UIViewController {
     
     private func refresh() {
         
-        WeatherService.shared.getWeather { (success, weather, weatherIcon) in
+        WeatherService.shared.getWeather { (success, weather) in
             
             if success {
-                self.weatherIcon = weatherIcon
                 self.weather = weather
                 self.cityLabel.text = weather?.query.results.channel[0].location.city
                 if let temp = weather?.query.results.channel[0].item.condition.temp {

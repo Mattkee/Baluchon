@@ -16,6 +16,7 @@ class ChangeService {
     static var shared = ChangeService()
     private init() {}
 
+    // MARK: - Properties
     private static let changeUrl = URL(string: "http://data.fixer.io/api/latest?access_key=d08ec4ef9bde66e8a89fafb3527c76f7")!
     private static let moneyUrl = URL(string: "http://data.fixer.io/api/symbols?access_key=d08ec4ef9bde66e8a89fafb3527c76f7")!
 
@@ -26,11 +27,43 @@ class ChangeService {
     init(changeSession: URLSession) {
         self.changeSession = changeSession
     }
+}
 
+// MARK: - Calculs
+extension ChangeService {
+    func changeMoney(changeNeed: Double, numberNeedToConvert: String, moneySelectedValueForOneEuro: Double) -> Double {
+        var number: Double
+        if numberNeedToConvert.last == "." {
+            number = Double(numberNeedToConvert + "0")!
+        } else {
+            guard (Double(numberNeedToConvert) != nil) else {
+                return 0
+            }
+            number = Double(numberNeedToConvert)!
+        }
+        if moneySelectedValueForOneEuro == 1.0 {
+            return number * changeNeed
+        } else {
+            let numberToConvert = number / moneySelectedValueForOneEuro
+            return numberToConvert * changeNeed
+        }
+    }
+    
+    func searchMoney(moneyName: String, moneyData: Money) -> String {
+        for (abreviation, name) in moneyData.symbols {
+            if moneyName == name {
+                return abreviation
+            }
+        }
+        return ""
+    }
+}
+// MARK: - Network Call
+extension ChangeService {
     func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
         var request = URLRequest(url: ChangeService.changeUrl)
         request.httpMethod = "GET"
-
+        
         task?.cancel()
         task = changeSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
@@ -59,6 +92,7 @@ class ChangeService {
         }
         task?.resume()
     }
+
     func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
         var request = URLRequest(url: ChangeService.moneyUrl)
         request.httpMethod = "GET"
@@ -86,32 +120,5 @@ class ChangeService {
             }
         }
         task?.resume()
-    }
-    
-    func changeMoney(changeNeed: Double, numberNeedToConvert: String, moneySelectedValueForOneEuro: Double) -> Double {
-        var number: Double
-        if numberNeedToConvert.last == "." {
-            number = Double(numberNeedToConvert + "0")!
-        } else {
-            guard (Double(numberNeedToConvert) != nil) else {
-                return 0
-            }
-            number = Double(numberNeedToConvert)!
-        }
-        if moneySelectedValueForOneEuro == 1.0 {
-            return number * changeNeed
-        } else {
-            let numberToConvert = number / moneySelectedValueForOneEuro
-            return numberToConvert * changeNeed
-        }
-    }
-
-    func searchMoney(moneyName: String, moneyData: Money) -> String {
-        for (abreviation, name) in moneyData.symbols {
-            if moneyName == name {
-                return abreviation
-            }
-        }
-        return ""
     }
 }
