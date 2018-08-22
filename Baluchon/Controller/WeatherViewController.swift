@@ -10,11 +10,12 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
-    var weather: Weather?
+    static var weather: Weather?
+    static var allCity = ["New York","Quimper","Nantes"]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        refresh()
         // Do any additional setup after loading the view.
     }
 
@@ -22,29 +23,63 @@ class WeatherViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var weatherImage: UIImageView!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
+
+    @IBOutlet weak var tableView: UITableView!
     
     private func refresh() {
         
-        WeatherService.shared.getWeather { (success, weather) in
+        WeatherService.shared.getWeather(city: WeatherViewController.allCity) { (success, weather) in
             
             if success {
-                self.weather = weather
-                self.cityLabel.text = weather?.query.results.channel[0].location.city
-                if let temp = weather?.query.results.channel[0].item.condition.temp {
-                    self.temperatureLabel.text = "\(temp)°C"
-                }
-                print("c'est super")
+                WeatherViewController.weather = weather
+
+                self.tableView.reloadData()
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
-                print("ok")
             }
         }
     }
+    private func removeCity(at index: Int) {
+        WeatherViewController.allCity.remove(at: index)
+    }
 }
+// MARK: - Tab View Management
+extension WeatherViewController: UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return WeatherViewController.allCity.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath) as? WeatherImage else {
+            return UITableViewCell()
+        }
+        guard let city = WeatherViewController.weather?.query.results.channel[indexPath.row] else {
+            return UITableViewCell()
+        }
+        let icon = UIImage(named: Constant.WeatherConstant.setImage(city.item.condition.code))
+        
+        cell.configure(withIcon: icon!, cityName: city.location.city, temperature: "\(city.item.condition.temp)°C")
+        return cell
+    }
+}
+// MARK: - Delete Cell
+extension WeatherViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.removeCity(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+}
 // MARK: - Alert Management
 extension WeatherViewController: DisplayAlert {
     func showAlert(title: String, message: String) {

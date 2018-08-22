@@ -10,25 +10,26 @@ import Foundation
 
 struct Weather: Decodable {
     let query: Query
+    struct Query: Decodable {
+        let results: Results
+    }
+    struct Results: Decodable {
+        let channel: [Channel]
+    }
+    struct Channel: Decodable {
+        let location: Location
+        let item: Item
+    }
+    struct Location: Decodable {
+        let city: String
+    }
+    struct Item: Decodable {
+        let condition: Condition
+    }
+    struct Condition: Decodable {
+        let code: String
+        let temp: String
+        let text: String
+    }
 }
-struct Query: Decodable {
-    let results: Results
-}
-struct Results: Decodable {
-    let channel: [Channel]
-}
-struct Channel: Decodable {
-    let location: Location
-    let item: Item
-}
-struct Location: Decodable {
-    let city: String
-}
-struct Item: Decodable {
-    let condition: Condition
-}
-struct Condition: Decodable {
-    let code: String
-    let temp: String
-    let text: String
-}
+

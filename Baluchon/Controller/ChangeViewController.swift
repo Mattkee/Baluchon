@@ -64,7 +64,6 @@ extension ChangeViewController {
                 
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
-                print("ok")
             }
         }
     }
@@ -129,10 +128,14 @@ extension ChangeViewController {
 }
 
 // MARK: - Keyboard
-extension ChangeViewController {
+extension ChangeViewController: UITextFieldDelegate {
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         convertedCurrency.resignFirstResponder()
         currencyToConvert.resignFirstResponder()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
