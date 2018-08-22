@@ -273,9 +273,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="city" destination="ybV-RN-P9A" id="qDg-IE-ig6"/>
-                                            <outlet property="temp" destination="xLV-T6-Uy9" id="0bD-UB-too"/>
-                                            <outlet property="weatherIcon" destination="79C-ev-XHX" id="arX-nJ-5vd"/>
+                                            <outlet property="city" destination="ybV-RN-P9A" id="Iwo-Z6-13i"/>
+                                            <outlet property="temp" destination="xLV-T6-Uy9" id="SgE-rx-ZiC"/>
+                                            <outlet property="weatherIcon" destination="79C-ev-XHX" id="4Ow-KI-3vo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

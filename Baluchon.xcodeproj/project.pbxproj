@@ -10,7 +10,6 @@
 		AF1338F221143AF6004D60E3 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1338F121143AF6004D60E3 /* Money.swift */; };
 		AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F00E2109D4E90076F295 /* ChangeService.swift */; };
 		AF89F011210A6C6D0076F295 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F010210A6C6D0076F295 /* Change.swift */; };
-		AF9DBDED212AF4AA001778D5 /* WeatherImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9DBDEC212AF4AA001778D5 /* WeatherImage.swift */; };
 		AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */; };
 		AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */; };
 		AFBEDA302105CE37009DC033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBEDA2E2105CE37009DC033 /* Main.storyboard */; };
@@ -21,13 +20,13 @@
 		AFE205D42125D99300249CC6 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE205D32125D99300249CC6 /* Weather.swift */; };
 		AFFE3C8D212D6E1200300668 /* AddNewCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE3C8C212D6E1200300668 /* AddNewCityViewController.swift */; };
 		AFFE3C8F212D8B3500300668 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE3C8E212D8B3500300668 /* Constant.swift */; };
+		AFFE3C97212E0A5900300668 /* WeatherImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE3C96212E0A5900300668 /* WeatherImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF1338F121143AF6004D60E3 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		AF89F00E2109D4E90076F295 /* ChangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeService.swift; sourceTree = "<group>"; };
 		AF89F010210A6C6D0076F295 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
-		AF9DBDEC212AF4AA001778D5 /* WeatherImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImage.swift; sourceTree = "<group>"; };
 		AFBEDA272105CE37009DC033 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +39,7 @@
 		AFE205D32125D99300249CC6 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		AFFE3C8C212D6E1200300668 /* AddNewCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCityViewController.swift; sourceTree = "<group>"; };
 		AFFE3C8E212D8B3500300668 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		AFFE3C96212E0A5900300668 /* WeatherImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 			children = (
 				AFBEDA2E2105CE37009DC033 /* Main.storyboard */,
 				AFBEDA332105CE39009DC033 /* LaunchScreen.storyboard */,
-				AF9DBDEC212AF4AA001778D5 /* WeatherImage.swift */,
+				AFFE3C96212E0A5900300668 /* WeatherImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,9 +198,9 @@
 				AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */,
 				AFE205D02125D61600249CC6 /* WeatherViewController.swift in Sources */,
 				AF1338F221143AF6004D60E3 /* Money.swift in Sources */,
+				AFFE3C97212E0A5900300668 /* WeatherImage.swift in Sources */,
 				AFFE3C8D212D6E1200300668 /* AddNewCityViewController.swift in Sources */,
 				AF89F011210A6C6D0076F295 /* Change.swift in Sources */,
-				AF9DBDED212AF4AA001778D5 /* WeatherImage.swift in Sources */,
 				AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */,
 				AFFE3C8F212D8B3500300668 /* Constant.swift in Sources */,
 				AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */,
