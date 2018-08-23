@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -420,18 +421,113 @@
         <!--Traduction-->
         <scene sceneID="Vff-6b-Mog">
             <objects>
-                <viewController id="nVs-nz-VSM" sceneMemberID="viewController">
+                <viewController id="nVs-nz-VSM" customClass="TranslateViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egA-ml-7Gw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Texte à traduire" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KPe-d2-MVO">
+                                <rect key="frame" x="25" y="134" width="325" height="150"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KPe-d2-MVO" secondAttribute="height" multiplier="337:203" constant="75.98522167487684" id="3tj-ZK-Q9g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="nVs-nz-VSM" id="aBD-gc-QOy"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EZ-aU-nYi">
+                                <rect key="frame" x="50" y="299" width="274" height="45"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="F37-cW-qkd"/>
+                                </constraints>
+                                <state key="normal" title="Traduire">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="translateText:" destination="nVs-nz-VSM" eventType="touchUpInside" id="583-ma-cSQ"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WY2-cs-Ape">
+                                <rect key="frame" x="25" y="79" width="325" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ei5-kO-SoN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="nVs-nz-VSM" id="P4d-BV-ffu"/>
+                                    <outlet property="delegate" destination="nVs-nz-VSM" id="l0R-6J-JuD"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLx-1m-FOr">
+                                <rect key="frame" x="25" y="359" width="325" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="skN-Xp-sou"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="nVs-nz-VSM" id="Zy2-Lt-kAD"/>
+                                    <outlet property="delegate" destination="nVs-nz-VSM" id="Fhe-sS-rvg"/>
+                                </connections>
+                            </pickerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Traduction" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rXW-OK-arf">
+                                <rect key="frame" x="25" y="414" width="325" height="150"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="nVs-nz-VSM" id="Ec7-cT-3aL"/>
+                                </connections>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="0EZ-aU-nYi" firstAttribute="leading" secondItem="SYd-xG-1oS" secondAttribute="leading" constant="50" id="2cG-sT-Wzy"/>
+                            <constraint firstItem="rXW-OK-arf" firstAttribute="top" secondItem="oLx-1m-FOr" secondAttribute="bottom" constant="5" id="6EM-kH-Xnr"/>
+                            <constraint firstItem="SYd-xG-1oS" firstAttribute="trailing" secondItem="WY2-cs-Ape" secondAttribute="trailing" constant="25" id="9o3-Nb-o4G"/>
+                            <constraint firstItem="SYd-xG-1oS" firstAttribute="trailing" secondItem="KPe-d2-MVO" secondAttribute="trailing" constant="25" id="BTK-mC-6Wl"/>
+                            <constraint firstItem="oLx-1m-FOr" firstAttribute="leading" secondItem="SYd-xG-1oS" secondAttribute="leading" constant="25" id="ChX-dY-Fo3"/>
+                            <constraint firstItem="0EZ-aU-nYi" firstAttribute="centerX" secondItem="KPe-d2-MVO" secondAttribute="centerX" id="EXs-sS-txX"/>
+                            <constraint firstItem="KPe-d2-MVO" firstAttribute="leading" secondItem="SYd-xG-1oS" secondAttribute="leading" constant="25" id="F6f-V5-Hx8"/>
+                            <constraint firstItem="oLx-1m-FOr" firstAttribute="top" secondItem="0EZ-aU-nYi" secondAttribute="bottom" constant="15" id="Idt-Mt-00W"/>
+                            <constraint firstItem="rXW-OK-arf" firstAttribute="height" secondItem="KPe-d2-MVO" secondAttribute="height" id="YzU-zk-GCu"/>
+                            <constraint firstItem="rXW-OK-arf" firstAttribute="width" secondItem="KPe-d2-MVO" secondAttribute="width" id="aTI-vS-OsG"/>
+                            <constraint firstItem="SYd-xG-1oS" firstAttribute="trailing" secondItem="oLx-1m-FOr" secondAttribute="trailing" constant="25" id="cWW-6U-mVs"/>
+                            <constraint firstItem="0EZ-aU-nYi" firstAttribute="top" secondItem="KPe-d2-MVO" secondAttribute="bottom" constant="15" id="ivC-BB-oIn"/>
+                            <constraint firstItem="rXW-OK-arf" firstAttribute="centerX" secondItem="KPe-d2-MVO" secondAttribute="centerX" id="n8V-mJ-Zfk"/>
+                            <constraint firstItem="KPe-d2-MVO" firstAttribute="centerX" secondItem="egA-ml-7Gw" secondAttribute="centerX" id="raO-Fz-lPI"/>
+                            <constraint firstItem="KPe-d2-MVO" firstAttribute="top" secondItem="WY2-cs-Ape" secondAttribute="bottom" constant="5" id="vzY-Td-aSi"/>
+                            <constraint firstItem="WY2-cs-Ape" firstAttribute="top" secondItem="SYd-xG-1oS" secondAttribute="top" constant="15" id="whh-53-83l"/>
+                            <constraint firstItem="WY2-cs-Ape" firstAttribute="leading" secondItem="SYd-xG-1oS" secondAttribute="leading" constant="25" id="zrT-Pj-JDY"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="SYd-xG-1oS"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="J6W-ch-iGr" appends="YES" id="FaZ-Kd-uyB"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Traduction" id="Q18-se-KVg"/>
+                    <connections>
+                        <outlet property="textToTranslate" destination="KPe-d2-MVO" id="abd-up-fpP"/>
+                        <outlet property="textToTranslatePicker" destination="WY2-cs-Ape" id="64O-TG-Q59"/>
+                        <outlet property="textTranslated" destination="rXW-OK-arf" id="AFb-u3-R8l"/>
+                        <outlet property="textTranslatedPicker" destination="oLx-1m-FOr" id="E0r-K5-1jV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sEH-9W-rSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="J6W-ch-iGr">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="nVs-nz-VSM" id="eXv-C9-PgH"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1001" y="993"/>
+            <point key="canvasLocation" x="1000.8" y="992.65367316341838"/>
         </scene>
     </scenes>
     <resources>
