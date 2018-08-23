@@ -25,11 +25,11 @@ class TranslateService {
         self.translateSession = translateSession
         self.languageSession = languageSession
     }
-    private func createTranslateRequest(_ textToTranslate: String) -> URLRequest {
+    private func createTranslateRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> URLRequest {
         var request = URLRequest(url: TranslateService.translateUrl)
         request.httpMethod = "POST"
-        let text = textToTranslate
-        let body = "target=zh&source=fr&q=\(text)"
+
+        let body = "target=\(languageTranslated)&source=\(languageToTranslate)&q=\(textToTranslate)"
         request.httpBody = body.data(using: .utf8)
         
         return request
@@ -47,9 +47,9 @@ class TranslateService {
 
 // MARK: - Network Call
 extension TranslateService {
-    func getTranslate(textToTranslate: String, callback: @escaping (Bool, Translate?) -> Void) {
-        let request = createTranslateRequest(textToTranslate)
-        
+    func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
+        let request = createTranslateRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
+
         task?.cancel()
         task = translateSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {

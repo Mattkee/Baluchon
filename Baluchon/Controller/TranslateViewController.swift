@@ -12,6 +12,8 @@ class TranslateViewController: UIViewController {
 
     var language: Language?
     var languageList = [String]()
+    var languageToTranslate = "fr"
+    var languageTranslated = "en"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,8 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak var textTranslatedPicker: UIPickerView!
 
     @IBAction func translateText(_ sender: UIButton) {
-        TranslateService.shared.getTranslate(textToTranslate: textToTranslate.text) { (success, translate) in
+        selectedPickerText()
+        TranslateService.shared.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, translate) in
             
             if success {
                 self.textTranslated.text = translate?.data.translations[0].translatedText
@@ -52,8 +55,19 @@ class TranslateViewController: UIViewController {
                 self.languageList.sort()
                 self.textToTranslatePicker.reloadComponent(0)
                 self.textTranslatedPicker.reloadComponent(0)
+                self.textToTranslatePicker.selectRow(self.languageList.index(of: "Français")!, inComponent: 0, animated: false)
+                self.textTranslatedPicker.selectRow(self.languageList.index(of: "Anglais")!, inComponent: 0, animated: false)
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+            }
+        }
+    }
+    private func selectedPickerText() {
+        for language in (language?.data.languages)! {
+            if language.name == languageList[textToTranslatePicker.selectedRow(inComponent: 0)] {
+                languageToTranslate = language.language
+            } else if language.name == languageList[textTranslatedPicker.selectedRow(inComponent: 0)] {
+                languageTranslated = language.language
             }
         }
     }
