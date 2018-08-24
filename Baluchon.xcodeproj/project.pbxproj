@@ -14,6 +14,12 @@
 		AF1AC71D212EE3CC00836D57 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1AC71C212EE3CC00836D57 /* TranslateViewController.swift */; };
 		AF89F00F2109D4E90076F295 /* ChangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F00E2109D4E90076F295 /* ChangeService.swift */; };
 		AF89F011210A6C6D0076F295 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89F010210A6C6D0076F295 /* Change.swift */; };
+		AFB841DB212FE4DB00EBD5D8 /* ChangeServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB841DA212FE4DB00EBD5D8 /* ChangeServiceTestCase.swift */; };
+		AFB841DD212FE60A00EBD5D8 /* Change.json in Resources */ = {isa = PBXBuildFile; fileRef = AFB841DC212FE60A00EBD5D8 /* Change.json */; };
+		AFB841DF212FE9EE00EBD5D8 /* FakeChangeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB841DE212FE9EE00EBD5D8 /* FakeChangeResponseData.swift */; };
+		AFB841E1212FEFD500EBD5D8 /* Money.json in Resources */ = {isa = PBXBuildFile; fileRef = AFB841E0212FEFD500EBD5D8 /* Money.json */; };
+		AFB841E5212FF02400EBD5D8 /* FakeMoneyResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB841E4212FF02400EBD5D8 /* FakeMoneyResponseData.swift */; };
+		AFB841E7212FF3A900EBD5D8 /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB841E6212FF3A900EBD5D8 /* URLSessionFake.swift */; };
 		AFBEDA2B2105CE37009DC033 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */; };
 		AFBEDA2D2105CE37009DC033 /* ChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */; };
 		AFBEDA302105CE37009DC033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBEDA2E2105CE37009DC033 /* Main.storyboard */; };
@@ -27,6 +33,16 @@
 		AFFE3C97212E0A5900300668 /* WeatherImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE3C96212E0A5900300668 /* WeatherImage.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AFB841D5212FE44900EBD5D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFBEDA1F2105CE37009DC033 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFBEDA262105CE37009DC033;
+			remoteInfo = Baluchon;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AF1338F121143AF6004D60E3 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		AF1AC716212EAAB500836D57 /* TranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateService.swift; sourceTree = "<group>"; };
@@ -35,6 +51,14 @@
 		AF1AC71C212EE3CC00836D57 /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
 		AF89F00E2109D4E90076F295 /* ChangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeService.swift; sourceTree = "<group>"; };
 		AF89F010210A6C6D0076F295 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
+		AFB841D0212FE44900EBD5D8 /* BaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFB841D4212FE44900EBD5D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFB841DA212FE4DB00EBD5D8 /* ChangeServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeServiceTestCase.swift; sourceTree = "<group>"; };
+		AFB841DC212FE60A00EBD5D8 /* Change.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Change.json; sourceTree = "<group>"; };
+		AFB841DE212FE9EE00EBD5D8 /* FakeChangeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeChangeResponseData.swift; sourceTree = "<group>"; };
+		AFB841E0212FEFD500EBD5D8 /* Money.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Money.json; sourceTree = "<group>"; };
+		AFB841E4212FF02400EBD5D8 /* FakeMoneyResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMoneyResponseData.swift; sourceTree = "<group>"; };
+		AFB841E6212FF3A900EBD5D8 /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		AFBEDA272105CE37009DC033 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBEDA2A2105CE37009DC033 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +75,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AFB841CD212FE44900EBD5D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFBEDA242105CE37009DC033 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,10 +92,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AFB841D1212FE44900EBD5D8 /* BaluchonTests */ = {
+			isa = PBXGroup;
+			children = (
+				AFB841D4212FE44900EBD5D8 /* Info.plist */,
+				AFB841DA212FE4DB00EBD5D8 /* ChangeServiceTestCase.swift */,
+				AFB841DC212FE60A00EBD5D8 /* Change.json */,
+				AFB841DE212FE9EE00EBD5D8 /* FakeChangeResponseData.swift */,
+				AFB841E0212FEFD500EBD5D8 /* Money.json */,
+				AFB841E4212FF02400EBD5D8 /* FakeMoneyResponseData.swift */,
+				AFB841E6212FF3A900EBD5D8 /* URLSessionFake.swift */,
+			);
+			path = BaluchonTests;
+			sourceTree = "<group>";
+		};
 		AFBEDA1E2105CE37009DC033 = {
 			isa = PBXGroup;
 			children = (
 				AFBEDA292105CE37009DC033 /* Baluchon */,
+				AFB841D1212FE44900EBD5D8 /* BaluchonTests */,
 				AFBEDA282105CE37009DC033 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				AFBEDA272105CE37009DC033 /* Baluchon.app */,
+				AFB841D0212FE44900EBD5D8 /* BaluchonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +185,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AFB841CF212FE44900EBD5D8 /* BaluchonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFB841D9212FE44900EBD5D8 /* Build configuration list for PBXNativeTarget "BaluchonTests" */;
+			buildPhases = (
+				AFB841CC212FE44900EBD5D8 /* Sources */,
+				AFB841CD212FE44900EBD5D8 /* Frameworks */,
+				AFB841CE212FE44900EBD5D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFB841D6212FE44900EBD5D8 /* PBXTargetDependency */,
+			);
+			name = BaluchonTests;
+			productName = BaluchonTests;
+			productReference = AFB841D0212FE44900EBD5D8 /* BaluchonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AFBEDA262105CE37009DC033 /* Baluchon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFBEDA392105CE39009DC033 /* Build configuration list for PBXNativeTarget "Baluchon" */;
@@ -165,6 +230,11 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Mattkee;
 				TargetAttributes = {
+					AFB841CF212FE44900EBD5D8 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
+						TestTargetID = AFBEDA262105CE37009DC033;
+					};
 					AFBEDA262105CE37009DC033 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -184,11 +254,21 @@
 			projectRoot = "";
 			targets = (
 				AFBEDA262105CE37009DC033 /* Baluchon */,
+				AFB841CF212FE44900EBD5D8 /* BaluchonTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AFB841CE212FE44900EBD5D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFB841E1212FEFD500EBD5D8 /* Money.json in Resources */,
+				AFB841DD212FE60A00EBD5D8 /* Change.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFBEDA252105CE37009DC033 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -202,6 +282,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AFB841CC212FE44900EBD5D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFB841DB212FE4DB00EBD5D8 /* ChangeServiceTestCase.swift in Sources */,
+				AFB841E7212FF3A900EBD5D8 /* URLSessionFake.swift in Sources */,
+				AFB841E5212FF02400EBD5D8 /* FakeMoneyResponseData.swift in Sources */,
+				AFB841DF212FE9EE00EBD5D8 /* FakeChangeResponseData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFBEDA232105CE37009DC033 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -226,6 +317,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AFB841D6212FE44900EBD5D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFBEDA262105CE37009DC033 /* Baluchon */;
+			targetProxy = AFB841D5212FE44900EBD5D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		AFBEDA2E2105CE37009DC033 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -246,6 +345,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AFB841D7212FE44900EBD5D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BaluchonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattkee.BaluchonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baluchon.app/Baluchon";
+			};
+			name = Debug;
+		};
+		AFB841D8212FE44900EBD5D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BaluchonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattkee.BaluchonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baluchon.app/Baluchon";
+			};
+			name = Release;
+		};
 		AFBEDA372105CE39009DC033 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -397,6 +537,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AFB841D9212FE44900EBD5D8 /* Build configuration list for PBXNativeTarget "BaluchonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFB841D7212FE44900EBD5D8 /* Debug */,
+				AFB841D8212FE44900EBD5D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AFBEDA222105CE37009DC033 /* Build configuration list for PBXProject "Baluchon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -10,25 +10,22 @@ import UIKit
 
 class AddNewCityViewController: UIViewController {
 
+    // MARK: - Properties
     var weather : Weather?
     var city = [String]()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: - Outlets
     @IBOutlet weak var cityStackView: UIStackView!
     @IBOutlet weak var addNewCityButton: UIButton!
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityTemp: UILabel!
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var searchCityText: UITextField!
+}
+
+// MARK: - Action
+extension AddNewCityViewController {
+
     @IBAction func searchCity(_ sender: UITextField) {
         self.cityTemp.isHidden = false
         self.weatherIcon.isHidden = false
@@ -38,19 +35,20 @@ class AddNewCityViewController: UIViewController {
             
             if success {
                 self.weather = weather
-
+                
                 self.cityName.text = weather?.query.results.channel[0].location.city
                 let temperature = (weather?.query.results.channel[0].item.condition.temp)!
                 self.cityTemp.text = "\(temperature)°C"
                 self.weatherIcon.image = UIImage(named: Constant.WeatherConstant.setImage((weather?.query.results.channel[0].item.condition.code)!))
                 self.cityStackView.isHidden = false
                 self.addNewCityButton.isHidden = false
-
+                
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
             }
         }
     }
+
     @IBAction func addNewCity(_ sender: UIButton) {
         WeatherViewController.allCity.append(cityName.text!)
         self.cityName.text = "Ville ajoutée"

@@ -10,33 +10,26 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
+    // MARK: - Properties
     static var weather: Weather?
     static var allCity = ["New York","Quimper","Nantes"]
-    
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refresh()
     }
-
     @IBOutlet weak var tableView: UITableView!
-    
+}
+
+// MARK: - Methods
+extension WeatherViewController {
     private func refresh() {
         
         WeatherService.shared.getWeather(city: WeatherViewController.allCity) { (success, weather) in
             
             if success {
                 WeatherViewController.weather = weather
-
+                
                 self.tableView.reloadData()
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
@@ -47,6 +40,7 @@ class WeatherViewController: UIViewController {
         WeatherViewController.allCity.remove(at: index)
     }
 }
+
 // MARK: - Tab View Management
 extension WeatherViewController: UITableViewDataSource {
 

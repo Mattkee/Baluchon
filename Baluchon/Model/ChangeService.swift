@@ -23,9 +23,11 @@ class ChangeService {
     private var task : URLSessionDataTask?
 
     private var changeSession = URLSession(configuration: .default)
+    private var moneySession = URLSession(configuration: .default)
     
-    init(changeSession: URLSession) {
+    init(changeSession: URLSession, moneySession: URLSession) {
         self.changeSession = changeSession
+        self.moneySession = moneySession
     }
 }
 
@@ -69,12 +71,10 @@ extension ChangeService {
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil, nil)
-                    print("er1")
                     return
                 }
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     callback(false, nil, nil)
-                    print("er2")
                     return
                 }
                 guard let change = try? JSONDecoder().decode(Change.self, from: data) else {
@@ -93,21 +93,19 @@ extension ChangeService {
         task?.resume()
     }
 
-    func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
+    private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
         var request = URLRequest(url: ChangeService.moneyUrl)
         request.httpMethod = "GET"
         
         task?.cancel()
-        task = changeSession.dataTask(with: request) { (data, response, error) in
+        task = moneySession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(nil)
-                    print("er1")
                     return
                 }
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     completionHandler(nil)
-                    print("er2")
                     return
                 }
                 do {
@@ -115,7 +113,6 @@ extension ChangeService {
                     completionHandler(money)
                 } catch {
                     completionHandler(nil)
-                    print("er3")
                 }
             }
         }

@@ -153,6 +153,15 @@ extension ChangeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.nameList[row]
     }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == pickerViewMoneyToConvert {
+            selectedPickerText()
+            changeValueText(labelMoneyToConvert, labelConvertedMoney, money!, currencyToConvert)
+        } else {
+            selectedPickerText()
+            changeValueText(labelConvertedMoney, labelMoneyToConvert, money!, convertedCurrency)
+        }
+    }
 }
 
 // MARK: - Alert Management

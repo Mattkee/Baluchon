@@ -10,6 +10,7 @@ import UIKit
 
 class TranslateViewController: UIViewController {
 
+    // MARK: - Properties
     var language: Language?
     var languageList = [String]()
     var languageToTranslate = "fr"
@@ -21,17 +22,13 @@ class TranslateViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: - Outlets
     @IBOutlet weak var textToTranslate: UITextView!
     @IBOutlet weak var textTranslated: UITextView!
-
     @IBOutlet weak var textToTranslatePicker: UIPickerView!
-    
     @IBOutlet weak var textTranslatedPicker: UIPickerView!
 
+    // MARK: - Action
     @IBAction func translateText(_ sender: UIButton) {
         selectedPickerText()
         TranslateService.shared.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, translate) in
@@ -44,7 +41,11 @@ class TranslateViewController: UIViewController {
             }
         }
     }
-    func refresh() {
+}
+
+// MARK: - Methods
+extension TranslateViewController {
+    private func refresh() {
         TranslateService.shared.getLanguage { (success, language) in
             
             if success {
@@ -73,7 +74,7 @@ class TranslateViewController: UIViewController {
     }
 }
 
-//MARK: - PickerView
+// MARK: - PickerView
 extension TranslateViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

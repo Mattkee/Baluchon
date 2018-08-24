@@ -13,6 +13,7 @@ class TranslateService {
     static var shared = TranslateService()
     private init() {}
     
+    // MARK: - Properties
     private static let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw")!
     private static let languageUrl = URL(string: "https://translation.googleapis.com/language/translate/v2/languages?key=AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw")!
     
@@ -25,10 +26,14 @@ class TranslateService {
         self.translateSession = translateSession
         self.languageSession = languageSession
     }
+}
+
+// MARK: - URL Management
+extension TranslateService {
     private func createTranslateRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> URLRequest {
         var request = URLRequest(url: TranslateService.translateUrl)
         request.httpMethod = "POST"
-
+        
         let body = "target=\(languageTranslated)&source=\(languageToTranslate)&q=\(textToTranslate)"
         request.httpBody = body.data(using: .utf8)
         
@@ -47,6 +52,7 @@ class TranslateService {
 
 // MARK: - Network Call
 extension TranslateService {
+    // MARK: - Translate Network Call
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
         let request = createTranslateRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
 
@@ -73,6 +79,7 @@ extension TranslateService {
         task?.resume()
     }
     
+    // MARK: - Language network Call
     func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
         let request = createLanguageRequest()
         

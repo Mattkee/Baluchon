@@ -426,7 +426,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Texte à traduire" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KPe-d2-MVO">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KPe-d2-MVO">
                                 <rect key="frame" x="25" y="134" width="325" height="150"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -476,7 +476,7 @@
                                     <outlet property="delegate" destination="nVs-nz-VSM" id="Fhe-sS-rvg"/>
                                 </connections>
                             </pickerView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Traduction" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rXW-OK-arf">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rXW-OK-arf">
                                 <rect key="frame" x="25" y="414" width="325" height="150"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

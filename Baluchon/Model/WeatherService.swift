@@ -12,6 +12,7 @@ class WeatherService {
     static var shared = WeatherService()
     private init() {}
 
+    // MARK: - Properties
     private var task : URLSessionDataTask?
     
     private var weatherSession = URLSession(configuration: .default)
@@ -20,6 +21,7 @@ class WeatherService {
         self.weatherSession = weatherSession
     }
     
+    // MARK: - Weather Network Call
     func getWeather(city: [String], callback: @escaping (Bool, Weather?) -> Void) {
 
         let Url = Constant.WeatherConstant().prepareFinalUrl(city)
