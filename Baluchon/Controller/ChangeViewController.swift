@@ -10,6 +10,7 @@ import UIKit
 
 class ChangeViewController: UIViewController {
     
+    let changeService = ChangeService()
     // MARK: - Properties
     var money : Money?
     var change : Change?
@@ -46,7 +47,7 @@ extension ChangeViewController {
         toggleActivityIndicator(shown: true)
         nameList = [String]()
         
-        ChangeService.shared.getChange { (success, change, money) in
+        changeService.getChange { (success, change, money) in
             self.toggleActivityIndicator(shown: false)
             
             if success {
@@ -76,6 +77,7 @@ extension ChangeViewController {
         pickerViewConvertedMoney.isHidden = shown
     }
 }
+
 // MARK: - Display preparation and result
 extension ChangeViewController {
     private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _
@@ -83,11 +85,11 @@ extension ChangeViewController {
         guard sender.hasText else {
             return
         }
-        let abreviationOne = ChangeService.shared.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
+        let abreviationOne = changeService.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
         
-        let abreviationTwo = ChangeService.shared.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
+        let abreviationTwo = changeService.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
         
-        let result = ChangeService.shared.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
+        let result = changeService.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
         let textField : UITextField
         if sender == convertedCurrency {
             textField = currencyToConvert

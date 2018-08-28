@@ -13,8 +13,6 @@ protocol DisplayAlert {
 }
 
 class ChangeService {
-    static var shared = ChangeService()
-    private init() {}
 
     // MARK: - Properties
     private static let changeUrl = URL(string: "http://data.fixer.io/api/latest?access_key=d08ec4ef9bde66e8a89fafb3527c76f7")!
@@ -25,7 +23,7 @@ class ChangeService {
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
     
-    init(changeSession: URLSession, moneySession: URLSession) {
+    init(changeSession: URLSession = URLSession(configuration: .default), moneySession: URLSession = URLSession(configuration: .default)) {
         self.changeSession = changeSession
         self.moneySession = moneySession
     }
