@@ -10,19 +10,17 @@ import Foundation
 
 class TranslateService {
     
-    static var shared = TranslateService()
-    private init() {}
-    
     // MARK: - Properties
-    private static let translateUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw")!
-    private static let languageUrl = URL(string: "https://translation.googleapis.com/language/translate/v2/languages?key=AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw")!
-    
-    private var task: URLSessionDataTask?
-    
+    static let googleAPIKey = "AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw"
+    private let translateRouter = Router<TranslateAPI>()
+    private let languageRouter = Router<LanguageAPI>()
+    var translateAPI = TranslateAPI()
+    var languageAPI = LanguageAPI()
+
     private var translateSession = URLSession(configuration: .default)
     private var languageSession = URLSession(configuration: .default)
     
-    init(translateSession: URLSession, languageSession: URLSession) {
+    init(translateSession: URLSession = URLSession(configuration: .default), languageSession: URLSession = URLSession(configuration: .default)) {
         self.translateSession = translateSession
         self.languageSession = languageSession
     }
@@ -30,23 +28,13 @@ class TranslateService {
 
 // MARK: - URL Management
 extension TranslateService {
-    private func createTranslateRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> URLRequest {
-        var request = URLRequest(url: TranslateService.translateUrl)
-        request.httpMethod = "POST"
+    private func createTranslateBodyRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> [String:String] {
         
-        let body = "target=\(languageTranslated)&source=\(languageToTranslate)&q=\(textToTranslate)"
-        request.httpBody = body.data(using: .utf8)
-        
-        return request
+        return ["source":languageToTranslate, "target":languageTranslated, "q":textToTranslate, "format":"text"]
     }
-    private func createLanguageRequest() -> URLRequest {
-        var request = URLRequest(url: TranslateService.languageUrl)
-        request.httpMethod = "POST"
-        
-        let body = "target=fr"
-        request.httpBody = body.data(using: .utf8)
-        
-        return request
+    private func createLanguageBodyRequest() -> [String:String] {
+
+        return ["target":"fr"]
     }
 }
 
@@ -54,10 +42,9 @@ extension TranslateService {
 extension TranslateService {
     // MARK: - Translate Network Call
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
-        let request = createTranslateRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
 
-        task?.cancel()
-        task = translateSession.dataTask(with: request) { (data, response, error) in
+        translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
+        translateRouter.request(translateAPI, translateSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -76,15 +63,13 @@ extension TranslateService {
                 callback(true, translate)
             }
         }
-        task?.resume()
     }
     
     // MARK: - Language network Call
     func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
-        let request = createLanguageRequest()
-        
-        task?.cancel()
-        task = translateSession.dataTask(with: request) { (data, response, error) in
+
+        languageAPI.body = createLanguageBodyRequest()
+        languageRouter.request(languageAPI, languageSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(false, nil)
@@ -105,6 +90,5 @@ extension TranslateService {
                 }
             }
         }
-        task?.resume()
     }
 }

@@ -62,7 +62,7 @@ extension WeatherViewController: UITableViewDataSource {
         guard let city = WeatherViewController.weather?.query.results.channel[indexPath.row] else {
             return UITableViewCell()
         }
-        let icon = UIImage(named: Constant.WeatherConstant.setImage(city.item.condition.code))
+        let icon = UIImage(named: weatherService.setImage(city.item.condition.code))
         
         cell.configure(withIcon: icon!, cityName: city.location.city, temperature: "\(city.item.condition.temp)°C")
         return cell

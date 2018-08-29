@@ -40,7 +40,7 @@ extension AddNewCityViewController {
                 self.cityName.text = weather?.query.results.channel[0].location.city
                 let temperature = (weather?.query.results.channel[0].item.condition.temp)!
                 self.cityTemp.text = "\(temperature)°C"
-                self.weatherIcon.image = UIImage(named: Constant.WeatherConstant.setImage((weather?.query.results.channel[0].item.condition.code)!))
+                self.weatherIcon.image = UIImage(named: self.weaterService.setImage((weather?.query.results.channel[0].item.condition.code)!))
                 self.cityStackView.isHidden = false
                 self.addNewCityButton.isHidden = false
                 

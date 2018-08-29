@@ -11,6 +11,7 @@ import UIKit
 class TranslateViewController: UIViewController {
 
     // MARK: - Properties
+    let translateService = TranslateService()
     var language: Language?
     var languageList = [String]()
     var languageToTranslate = "fr"
@@ -31,7 +32,7 @@ class TranslateViewController: UIViewController {
     // MARK: - Action
     @IBAction func translateText(_ sender: UIButton) {
         selectedPickerText()
-        TranslateService.shared.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, translate) in
+        translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, translate) in
             
             if success {
                 self.textTranslated.text = translate?.data.translations[0].translatedText
@@ -46,7 +47,7 @@ class TranslateViewController: UIViewController {
 // MARK: - Methods
 extension TranslateViewController {
     private func refresh() {
-        TranslateService.shared.getLanguage { (success, language) in
+        translateService.getLanguage { (success, language) in
             
             if success {
                 self.language = language
