@@ -11,12 +11,11 @@ import Foundation
 class WeatherService {
 
     // MARK: - Properties
-    private var task : URLSessionDataTask?
-    
-    private let weatherRouter = Router<WeatherAPI>()
-    var weatherAPI = WeatherAPI()
+    private var weatherAPI = WeatherAPI()
+    private let networkManager = NetworkManager()
+
     private var weatherSession = URLSession(configuration: .default)
-    
+
     init(weatherSession: URLSession = URLSession(configuration: .default)) {
         self.weatherSession = weatherSession
     }
@@ -62,7 +61,7 @@ class WeatherService {
     // MARK: - Weather Network Call
     func getWeather(city: [String], callback: @escaping (Bool, Weather?) -> Void) {
         weatherAPI.bodyText = prepareCityText(city)
-        weatherRouter.request(weatherAPI, weatherSession) { (data, response, error) in
+        networkManager.weatherRouter.request(weatherAPI, weatherSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)

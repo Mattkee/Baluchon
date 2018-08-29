@@ -15,11 +15,9 @@ protocol DisplayAlert {
 class ChangeService {
 
     // MARK: - Properties
-    static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
-    private let changeRouter = Router<ChangeAPI>()
-    private let moneyRouter = Router<MoneyAPI>()
-    let changeAPI = ChangeAPI()
-    let moneyAPI = MoneyAPI()
+    private let changeAPI = ChangeAPI()
+    private let moneyAPI = MoneyAPI()
+    private let networkManager = NetworkManager()
 
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
@@ -62,7 +60,7 @@ extension ChangeService {
 // MARK: - Network Call
 extension ChangeService {
     func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
-        changeRouter.request(changeAPI, changeSession) { (data, response, error) in
+        networkManager.changeRouter.request(changeAPI, changeSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil, nil)
@@ -88,7 +86,7 @@ extension ChangeService {
     }
 
     private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
-        moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
+        networkManager.moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(nil)

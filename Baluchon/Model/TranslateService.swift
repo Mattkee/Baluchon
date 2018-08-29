@@ -11,11 +11,9 @@ import Foundation
 class TranslateService {
     
     // MARK: - Properties
-    static let googleAPIKey = "AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw"
-    private let translateRouter = Router<TranslateAPI>()
-    private let languageRouter = Router<LanguageAPI>()
-    var translateAPI = TranslateAPI()
-    var languageAPI = LanguageAPI()
+    private var translateAPI = TranslateAPI()
+    private var languageAPI = LanguageAPI()
+    private let networkManager = NetworkManager()
 
     private var translateSession = URLSession(configuration: .default)
     private var languageSession = URLSession(configuration: .default)
@@ -44,7 +42,7 @@ extension TranslateService {
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
 
         translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
-        translateRouter.request(translateAPI, translateSession) { (data, response, error) in
+        networkManager.translateRouter.request(translateAPI, translateSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -64,12 +62,12 @@ extension TranslateService {
             }
         }
     }
-    
+
     // MARK: - Language network Call
     func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
 
         languageAPI.body = createLanguageBodyRequest()
-        languageRouter.request(languageAPI, languageSession) { (data, response, error) in
+        networkManager.languageRouter.request(languageAPI, languageSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(false, nil)

@@ -9,6 +9,7 @@
 import Foundation
 
 struct MoneyAPI: EndPointType {
+    private let networkManager = NetworkManager()
     var baseURL: URL {
         return URL(string: "http://data.fixer.io")!
     }
@@ -20,7 +21,7 @@ struct MoneyAPI: EndPointType {
     var httpMethod: HTTPMethod = .get
     
     var task: HTTPTask {
-        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":ChangeService.fixerAPIKey])
+        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":networkManager.fixerAPIKey])
     }
     
     var headers: HTTPHeaders? {

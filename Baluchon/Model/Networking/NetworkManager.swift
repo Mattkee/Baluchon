@@ -9,8 +9,13 @@
 import Foundation
 
 struct NetworkManager {
-    static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
-    private let changeRouter = Router<ChangeAPI>()
+    let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
+    let googleAPIKey = "AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw"
+    let changeRouter = Router<ChangeAPI>()
+    let moneyRouter = Router<MoneyAPI>()
+    let weatherRouter = Router<WeatherAPI>()
+    let translateRouter = Router<TranslateAPI>()
+    let languageRouter = Router<LanguageAPI>()
 
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
         switch response.statusCode {
