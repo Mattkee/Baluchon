@@ -17,7 +17,7 @@ class WeatherViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        allCity = Constant.WeatherConstant.allCity
+        allCity = Constant.allCity
         refresh()
     }
     @IBOutlet weak var tableView: UITableView!
@@ -40,7 +40,7 @@ extension WeatherViewController {
     }
     private func removeCity(at index: Int) {
         allCity.remove(at: index)
-        Constant.WeatherConstant.allCity = allCity
+        Constant.allCity = allCity
     }
 }
 

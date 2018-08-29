@@ -17,6 +17,12 @@ struct NetworkManager {
     let translateRouter = Router<TranslateAPI>()
     let languageRouter = Router<LanguageAPI>()
 
+//    var session = URLSession(configuration: .default)
+//
+//    init(session : URLSession = URLSession(configuration: .default)) {
+//        self.session = session
+//    }
+
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
         switch response.statusCode {
         case 200...299: return .success

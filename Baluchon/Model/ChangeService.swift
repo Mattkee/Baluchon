@@ -21,7 +21,7 @@ class ChangeService {
 
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
-    
+
     init(changeSession: URLSession = URLSession(configuration: .default), moneySession: URLSession = URLSession(configuration: .default)) {
         self.changeSession = changeSession
         self.moneySession = moneySession

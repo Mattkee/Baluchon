@@ -9,8 +9,5 @@
 import Foundation
 
 struct Constant {
-    struct WeatherConstant {
-        static var allCity = ["New York","Quimper","Nantes"]
-        
-    }
+    static var allCity = ["New York","Quimper","Nantes"]
 }

@@ -298,7 +298,7 @@
                     <navigationItem key="navigationItem" title="La météo" id="CTP-Po-ah6">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ahi-uG-h1F">
                             <connections>
-                                <segue destination="p8b-NA-yah" kind="show" id="PoD-R9-g8J"/>
+                                <segue destination="p8b-NA-yah" kind="show" identifier="success" id="PoD-R9-g8J"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

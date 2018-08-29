@@ -51,11 +51,13 @@ extension AddNewCityViewController {
     }
 
     @IBAction func addNewCity(_ sender: UIButton) {
-        Constant.WeatherConstant.allCity.append(cityName.text!)
+        Constant.allCity.append(cityName.text!)
         self.cityName.text = "Ville ajoutée"
         self.cityTemp.isHidden = true
         self.weatherIcon.isHidden = true
         self.addNewCityButton.isHidden = true
+
+        navigationController?.popViewController(animated: true)
     }
 }
 
