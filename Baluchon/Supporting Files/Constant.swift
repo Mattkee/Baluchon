@@ -10,29 +10,7 @@ import Foundation
 
 struct Constant {
     struct WeatherConstant {
-        private let fixedYahooUrl = "https://query.yahooapis.com/v1/public/yql?q="
-        private let baseQueryUrl = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text="
-        private let endQueryUrl = ") and u='c'"
-        private let endUrl = "&format=json"
-        
-        func prepareFinalUrl(_ allCity: [String]) -> URL {
-            var text = ""
-            for city in allCity {
-                if allCity[0] == city {
-                    text = "'\(city)'"
-                } else {
-                    text = text + "or text='\(city)'"
-                }
-            }
-            if allCity.count == 1 {
-                text = text + "or text='tourch'"
-            }
-            let finalQueryText = baseQueryUrl + text + endQueryUrl
-            let dynamicYahooUrl = finalQueryText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-            let yahooUrl = URL(string: "\(fixedYahooUrl)\(dynamicYahooUrl)\(endUrl)")
-            return yahooUrl!
-        }
-        
+        static var allCity = ["New York","Quimper","Nantes"]
         static func setImage(_ imageElementCode: String) -> String {
             switch imageElementCode {
             case "0", "2":

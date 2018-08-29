@@ -9,27 +9,39 @@
 import Foundation
 
 class WeatherService {
-    static var shared = WeatherService()
-    private init() {}
 
     // MARK: - Properties
     private var task : URLSessionDataTask?
     
+    private let weatherRouter = Router<WeatherAPI>()
+    var weatherAPI = WeatherAPI()
     private var weatherSession = URLSession(configuration: .default)
     
-    init(weatherSession: URLSession) {
+    init(weatherSession: URLSession = URLSession(configuration: .default)) {
         self.weatherSession = weatherSession
     }
-    
+
+    func prepareCityText(_ allCity: [String]) -> String {
+        var text = ""
+
+        for city in allCity {
+            if allCity[0] == city {
+                text = "'\(city)'"
+            } else {
+                text = text + "or text='\(city)'"
+            }
+        }
+        if allCity.count == 1 {
+            text = text + "or text='tourch'"
+        }
+        let q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text=\(text)) and u='c'"
+        return q
+    }
+
     // MARK: - Weather Network Call
     func getWeather(city: [String], callback: @escaping (Bool, Weather?) -> Void) {
-
-        let Url = Constant.WeatherConstant().prepareFinalUrl(city)
-        var request = URLRequest(url: Url)
-        request.httpMethod = "GET"
-        
-        task?.cancel()
-        task = weatherSession.dataTask(with: request) { (data, response, error) in
+        weatherAPI.bodyText = prepareCityText(city)
+        weatherRouter.request(weatherAPI, weatherSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -46,6 +58,5 @@ class WeatherService {
                 callback(true, weather)
             }
         }
-        task?.resume()
     }
 }

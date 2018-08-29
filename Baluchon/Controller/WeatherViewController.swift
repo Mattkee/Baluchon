@@ -11,11 +11,13 @@ import UIKit
 class WeatherViewController: UIViewController {
 
     // MARK: - Properties
+    let weatherService = WeatherService()
     static var weather: Weather?
-    static var allCity = ["New York","Quimper","Nantes"]
+    var allCity = [String]()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        allCity = Constant.WeatherConstant.allCity
         refresh()
     }
     @IBOutlet weak var tableView: UITableView!
@@ -25,7 +27,7 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController {
     private func refresh() {
         
-        WeatherService.shared.getWeather(city: WeatherViewController.allCity) { (success, weather) in
+        weatherService.getWeather(city: allCity) { (success, weather) in
             
             if success {
                 WeatherViewController.weather = weather
@@ -37,7 +39,8 @@ extension WeatherViewController {
         }
     }
     private func removeCity(at index: Int) {
-        WeatherViewController.allCity.remove(at: index)
+        allCity.remove(at: index)
+        Constant.WeatherConstant.allCity = allCity
     }
 }
 
@@ -49,7 +52,7 @@ extension WeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WeatherViewController.allCity.count
+        return allCity.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

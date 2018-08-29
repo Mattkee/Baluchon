@@ -15,16 +15,11 @@ protocol DisplayAlert {
 class ChangeService {
 
     // MARK: - Properties
-//    private static let changeUrl = URL(string: "http://data.fixer.io/api/latest?access_key=d08ec4ef9bde66e8a89fafb3527c76f7")!
-//    private static let moneyUrl = URL(string: "http://data.fixer.io/api/symbols?access_key=d08ec4ef9bde66e8a89fafb3527c76f7")!
-
     static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
     private let changeRouter = Router<ChangeAPI>()
     private let moneyRouter = Router<MoneyAPI>()
     let changeAPI = ChangeAPI()
     let moneyAPI = MoneyAPI()
-
-//    private var task : URLSessionDataTask?
 
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
@@ -67,11 +62,6 @@ extension ChangeService {
 // MARK: - Network Call
 extension ChangeService {
     func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
-//        var request = URLRequest(url: ChangeService.changeUrl)
-//        request.httpMethod = "GET"
-//
-//        task?.cancel()
-//        task = changeSession.dataTask(with: request) { (data, response, error) in
         changeRouter.request(changeAPI, changeSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
@@ -95,15 +85,9 @@ extension ChangeService {
                 }
             }
         }
-//        task?.resume()
     }
 
     private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
-//        var request = URLRequest(url: ChangeService.moneyUrl)
-//        request.httpMethod = "GET"
-//
-//        task?.cancel()
-//        task = moneySession.dataTask(with: request) { (data, response, error) in
         moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
@@ -122,6 +106,5 @@ extension ChangeService {
                 }
             }
         }
-//        task?.resume()
     }
 }

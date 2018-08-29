@@ -11,6 +11,7 @@ import UIKit
 class AddNewCityViewController: UIViewController {
 
     // MARK: - Properties
+    let weaterService = WeatherService()
     var weather : Weather?
     var city = [String]()
 
@@ -31,7 +32,7 @@ extension AddNewCityViewController {
         self.weatherIcon.isHidden = false
         city = [String]()
         city.append(sender.text!)
-        WeatherService.shared.getWeather(city: city) { (success, weather) in
+        weaterService.getWeather(city: city) { (success, weather) in
             
             if success {
                 self.weather = weather
@@ -50,7 +51,7 @@ extension AddNewCityViewController {
     }
 
     @IBAction func addNewCity(_ sender: UIButton) {
-        WeatherViewController.allCity.append(cityName.text!)
+        Constant.WeatherConstant.allCity.append(cityName.text!)
         self.cityName.text = "Ville ajoutée"
         self.cityTemp.isHidden = true
         self.weatherIcon.isHidden = true
