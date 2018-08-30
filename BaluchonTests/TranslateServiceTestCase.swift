@@ -14,8 +14,7 @@ class TranslateServiceTestCase: XCTestCase {
     func testGetTranslateShouldPostFailedCallbackIfError() {
         // Given
         let translateService = TranslateService(
-            translateSession: URLSessionFake(data: nil, response: nil, error: FakeTranslateResponseData.error),
-            languageSession: URLSessionFake(data: nil, response: nil, error: nil))
+            translateSession: URLSessionFake(data: nil, response: nil, error: FakeTranslateResponseData.error))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -29,19 +28,17 @@ class TranslateServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetChangeShouldPostFailedCallbackIfNoData() {
+    func testGetTranslateShouldPostFailedCallbackIfNoData() {
         // Given
-        let changeService = ChangeService(
-            changeSession: URLSessionFake(data: nil, response: nil, error: nil),
-            moneySession: URLSessionFake(data: nil, response: nil, error: nil))
+        let translateService = TranslateService(
+            translateSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        translateService.getTranslate(textToTranslate: "Bienvenue en Bretagne", languageToTranslate: "Français", languageTranslated: "Anglais") { (success, translate) in
             // Then
             XCTAssertFalse(success)
-            XCTAssertNil(change)
-            XCTAssertNil(money)
+            XCTAssertNil(translate)
             expectation.fulfill()
         }
         
