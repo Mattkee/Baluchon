@@ -127,4 +127,68 @@ class WeatherServiceTestCase: XCTestCase {
             expectation.fulfill()
         }
     }
+    func testGetWeatherWithOneCityShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
+        // Given
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(
+                data: FakeWeatherResponseData.weatherCorrectData,
+                response: FakeWeatherResponseData.responseOK,
+                error: nil))
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        weatherService.getWeather(city: ["New York"]) { (success, weather) in
+            // Then
+            XCTAssertTrue(success)
+            XCTAssertNotNil(weather)
+            expectation.fulfill()
+        }
+    }
+    func testSetImageWithCode32WhenSetThenResultIsSunny() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("32")
+
+        XCTAssertEqual(result, "sunny")
+    }
+    func testSetImageWithCode0WhenSetThenResultIsWind() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("0")
+        
+        XCTAssertEqual(result, "wind")
+    }
+    func testSetImageWithCode1WhenSetThenResultIsStorm() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("1")
+        
+        XCTAssertEqual(result, "storm")
+    }
+    func testSetImageWithCode5WhenSetThenResultIsSnowing() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("5")
+        
+        XCTAssertEqual(result, "snowing")
+    }
+    func testSetImageWithCode8WhenSetThenResultIsRain() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("8")
+        
+        XCTAssertEqual(result, "rain")
+    }
+    func testSetImageWithCode20WhenSetThenResultIsCloud() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("20")
+        
+        XCTAssertEqual(result, "cloud")
+    }
+    func testSetImageWithCode27WhenSetThenResultIsHalfMoon() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("27")
+        
+        XCTAssertEqual(result, "half-moon")
+    }
+    func testSetImageWithCode50WhenSetThenResultIsSun() {
+        let weatherService = WeatherService()
+        let result = weatherService.setImage("50")
+        
+        XCTAssertEqual(result, "sun")
+    }
 }
