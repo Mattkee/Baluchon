@@ -1,14 +1,14 @@
 //
-//  FakeMoneyResponseData.swift
+//  FakeLanguageResponseData.swift
 //  BaluchonTests
 //
-//  Created by Lei et Matthieu on 24/08/2018.
+//  Created by Lei et Matthieu on 30/08/2018.
 //  Copyright © 2018 Mattkee. All rights reserved.
 //
 
 import Foundation
 
-class FakeMoneyResponseData {
+class FakeLanguageResponseData {
     static let responseOK = HTTPURLResponse(
         url: URL(string: "https://openclassrooms.com")!,
         statusCode: 200, httpVersion: nil, headerFields: [:])!
@@ -17,13 +17,13 @@ class FakeMoneyResponseData {
         url: URL(string: "https://openclassrooms.com")!,
         statusCode: 500, httpVersion: nil, headerFields: [:])!
     
-    class MoneyError: Error {}
-    static let error = MoneyError()
+    class LanguageError: Error {}
+    static let error = LanguageError()
     
-    static var moneyCorrectData: Data? {
-        let bundle = Bundle(for: FakeMoneyResponseData.self)
-        let url = bundle.url(forResource: "Money", withExtension: "json")!
+    static var languageCorrectData: Data? {
+        let bundle = Bundle(for: FakeLanguageResponseData.self)
+        let url = bundle.url(forResource: "Language", withExtension: "json")!
         return try! Data(contentsOf: url)
     }
-    static let moneyIncorrectData = "erreur".data(using: .utf8)!
+    static let languageIncorrectData = "erreur".data(using: .utf8)!
 }

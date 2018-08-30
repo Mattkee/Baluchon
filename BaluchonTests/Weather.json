@@ -1,0 +1,50 @@
+{
+    "query": {
+        "count": 3,
+        "created": "2018-08-30T12:08:45Z",
+        "lang": "en-US",
+        "results": {
+            "channel": [
+                        {
+                        "location": {
+                        "city": "New York"
+                        },
+                        "item": {
+                        "condition": {
+                        "code": "34",
+                        "date": "Thu, 30 Aug 2018 07:00 AM EDT",
+                        "temp": "26",
+                        "text": "Mostly Sunny"
+                        }
+                        }
+                        },
+                        {
+                        "location": {
+                        "city": "Quimper"
+                        },
+                        "item": {
+                        "condition": {
+                        "code": "26",
+                        "date": "Thu, 30 Aug 2018 01:00 PM CEST",
+                        "temp": "16",
+                        "text": "Cloudy"
+                        }
+                        }
+                        },
+                        {
+                        "location": {
+                        "city": "Nantes"
+                        },
+                        "item": {
+                        "condition": {
+                        "code": "26",
+                        "date": "Thu, 30 Aug 2018 01:00 PM CEST",
+                        "temp": "20",
+                        "text": "Cloudy"
+                        }
+                        }
+                        }
+                        ]
+        }
+    }
+}

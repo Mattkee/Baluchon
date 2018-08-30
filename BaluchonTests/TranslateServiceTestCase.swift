@@ -1,34 +1,34 @@
 //
-//  ChangeServiceTestCase.swift
+//  TranslateServiceTestCase.swift
 //  BaluchonTests
 //
-//  Created by Lei et Matthieu on 24/08/2018.
+//  Created by Lei et Matthieu on 30/08/2018.
 //  Copyright © 2018 Mattkee. All rights reserved.
 //
 
 import XCTest
 @testable import Baluchon
 
-class ChangeServiceTestCase: XCTestCase {
+class TranslateServiceTestCase: XCTestCase {
     
-    func testGetChangeShouldPostFailedCallbackIfError() {
+    func testGetTranslateShouldPostFailedCallbackIfError() {
         // Given
-        let changeService = ChangeService(
-            changeSession: URLSessionFake(data: nil, response: nil, error: FakeChangeResponseData.error),
-            moneySession: URLSessionFake(data: nil, response: nil, error: nil))
+        let translateService = TranslateService(
+            translateSession: URLSessionFake(data: nil, response: nil, error: FakeTranslateResponseData.error),
+            languageSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        translateService.getTranslate(textToTranslate: "Bienvenue en Bretagne", languageToTranslate: "Français", languageTranslated: "Anglais") { (success, translate) in
             // Then
             XCTAssertFalse(success)
-            XCTAssertNil(change)
+            XCTAssertNil(translate)
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetChangeShouldPostFailedCallbackIfNoData() {
         // Given
         let changeService = ChangeService(
@@ -47,7 +47,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetChangeShouldPostFailedCallbackIfIncorrectResponse() {
         // Given
         let changeService = ChangeService(
@@ -68,7 +68,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetChangeShouldPostFailedCallbackIfIncorrectData() {
         // Given
         let changeService = ChangeService(
@@ -89,7 +89,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetQuoteShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
         // Given
         let changeService = ChangeService(
@@ -108,7 +108,7 @@ class ChangeServiceTestCase: XCTestCase {
             XCTAssertTrue(success)
             XCTAssertNotNil(change)
             XCTAssertNotNil(money)
-
+            
             let base = "EUR"
             let rates = ["AED": 4.249966,
                          "AFN": 84.979225,
@@ -446,14 +446,14 @@ class ChangeServiceTestCase: XCTestCase {
                            "ZMK": "Zambian Kwacha (pre-2013)",
                            "ZMW": "Zambian Kwacha",
                            "ZWL": "Zimbabwean Dollar"]
-
+            
             XCTAssertEqual(base, change!.base)
             XCTAssertEqual(rates, change!.rates)
             XCTAssertEqual(symbols, money!.symbols)
             expectation.fulfill()
         }
     }
-
+    
     func testGetMoneyShouldPostFailedCallbackIfError() {
         // Given
         let changeService = ChangeService(
@@ -471,7 +471,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetMoneyShouldPostFailedCallbackIfNoData() {
         // Given
         let changeService = ChangeService(
@@ -489,7 +489,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetMoneyShouldPostFailedCallbackIfIncorrectResponse() {
         // Given
         let changeService = ChangeService(
@@ -510,7 +510,7 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     func testGetMoneyShouldPostFailedCallbackIfIncorrectData() {
         // Given
         let changeService = ChangeService(
@@ -531,4 +531,5 @@ class ChangeServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
+    
 }
