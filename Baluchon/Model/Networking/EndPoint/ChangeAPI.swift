@@ -9,7 +9,7 @@
 import Foundation
 
 struct ChangeAPI: EndPointType {
-    private let networkManager = NetworkManager()
+    
     var baseURL: URL {
         return URL(string: "http://data.fixer.io")!
     }
@@ -21,12 +21,10 @@ struct ChangeAPI: EndPointType {
     var httpMethod: HTTPMethod = .get
     
     var task: HTTPTask {
-        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":networkManager.fixerAPIKey])
+        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":Constant.fixerAPIKey])
     }
     
     var headers: HTTPHeaders? {
         return nil
     }
-    
-    
 }

@@ -9,5 +9,12 @@
 import Foundation
 
 struct Constant {
+    // MARK: - Change Constant
+    static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
+
+    // MARK: - Translate Constant
+    let googleAPIKey = "AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw"
+
+    // MARK: - Weather Constant
     static var allCity = ["New York","Quimper","Nantes"]
 }

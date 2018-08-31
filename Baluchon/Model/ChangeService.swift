@@ -16,8 +16,9 @@ class ChangeService {
 
     // MARK: - Properties
     private let changeAPI = ChangeAPI()
-    private let moneyAPI = MoneyAPI()
-    private let networkManager = NetworkManager()
+    private let moneyAPI = MoneyAPI()    
+    private let changeRouter = Router<ChangeAPI>()
+    private let moneyRouter = Router<MoneyAPI>()
 
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
@@ -60,7 +61,7 @@ extension ChangeService {
 // MARK: - Network Call
 extension ChangeService {
     func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
-        networkManager.changeRouter.request(changeAPI, changeSession) { (data, response, error) in
+        changeRouter.request(changeAPI, changeSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil, nil)
@@ -86,7 +87,7 @@ extension ChangeService {
     }
 
     private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
-        networkManager.moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
+        moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(nil)

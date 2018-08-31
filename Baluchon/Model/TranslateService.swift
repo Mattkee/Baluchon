@@ -13,7 +13,8 @@ class TranslateService {
     // MARK: - Properties
     private var translateAPI = TranslateAPI()
     private var languageAPI = LanguageAPI()
-    private let networkManager = NetworkManager()
+    let translateRouter = Router<TranslateAPI>()
+    let languageRouter = Router<LanguageAPI>()
 
     private var translateSession = URLSession(configuration: .default)
     private var languageSession = URLSession(configuration: .default)
@@ -42,7 +43,7 @@ extension TranslateService {
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
 
         translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
-        networkManager.translateRouter.request(translateAPI, translateSession) { (data, response, error) in
+        translateRouter.request(translateAPI, translateSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -67,7 +68,7 @@ extension TranslateService {
     func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
 
         languageAPI.body = createLanguageBodyRequest()
-        networkManager.languageRouter.request(languageAPI, languageSession) { (data, response, error) in
+        languageRouter.request(languageAPI, languageSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completionHandler(false, nil)

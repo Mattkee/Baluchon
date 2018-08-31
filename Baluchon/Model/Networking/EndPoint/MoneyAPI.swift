@@ -21,7 +21,7 @@ struct MoneyAPI: EndPointType {
     var httpMethod: HTTPMethod = .get
     
     var task: HTTPTask {
-        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":networkManager.fixerAPIKey])
+        return .requestParameters(bodyParameters: nil, urlParameters: ["access_key":Constant.fixerAPIKey])
     }
     
     var headers: HTTPHeaders? {
