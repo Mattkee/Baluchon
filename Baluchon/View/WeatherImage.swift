@@ -9,11 +9,12 @@
 import UIKit
 
 class WeatherImage: UITableViewCell {
-        
+    // MARK: - Outlets
     @IBOutlet weak var city: UILabel!
     @IBOutlet weak var temp: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
-        
+
+    // MARK: - Methods
     func configure(withIcon: UIImage, cityName: String, temperature: String) {
         weatherIcon.image = withIcon
         city.text = cityName
