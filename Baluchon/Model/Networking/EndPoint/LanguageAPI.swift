@@ -9,7 +9,7 @@
 import Foundation
 
 struct LanguageAPI: EndPointType {
-    private let networkManager = NetworkManager()
+
     var body = [String:String]()
     var baseURL: URL {
         return URL(string: "https://translation.googleapis.com/language/translate")!
@@ -23,7 +23,7 @@ struct LanguageAPI: EndPointType {
     
     var task: HTTPTask {
         
-        return .requestParameters(bodyParameters: body, urlParameters: ["key":networkManager.googleAPIKey])
+        return .requestParameters(bodyParameters: body, urlParameters: ["key":Constant.googleAPIKey])
     }
     
     var headers: HTTPHeaders? {

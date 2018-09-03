@@ -21,7 +21,7 @@ class ChangeViewController: UIViewController {
     var displayAlertDelegate: DisplayAlert?
 
     // MARK: - Outlets
-    @IBOutlet weak var buttonRefresh: UIButton!
+    @IBOutlet weak var buttonRefresh: UIBarButtonItem!
     @IBOutlet weak var currencyToConvert: UITextField!
     @IBOutlet weak var convertedCurrency: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -71,7 +71,6 @@ extension ChangeViewController {
 
     private func toggleActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
-        buttonRefresh.isHidden = shown
         secondActivityIndicator.isHidden = !shown
         pickerViewMoneyToConvert.isHidden = shown
         pickerViewConvertedMoney.isHidden = shown
@@ -124,7 +123,7 @@ extension ChangeViewController {
         changeValueText(labelConvertedMoney, labelMoneyToConvert, money!, sender)
     }
 
-    @IBAction func refreshButton(_ sender: UIButton) {
+    @IBAction func refreshButton(_ sender: UIBarButtonItem) {
         refresh()
     }
 }
