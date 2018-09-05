@@ -36,7 +36,7 @@ class TranslateViewController: UIViewController {
             
             if success {
                 self.textTranslated.text = translate?.data.translations[0].translatedText
-                
+                self.textToTranslate.resignFirstResponder()
             } else {
                 self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
             }

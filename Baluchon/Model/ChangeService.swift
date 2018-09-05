@@ -41,12 +41,14 @@ extension ChangeService {
             }
             number = Double(numberNeedToConvert)!
         }
+        var result : Double
         if moneySelectedValueForOneEuro == 1.0 {
-            return number * changeNeed
+            result = number * changeNeed
         } else {
             let numberToConvert = number / moneySelectedValueForOneEuro
-            return numberToConvert * changeNeed
+            result = numberToConvert * changeNeed
         }
+        return result
     }
     
     func searchMoney(moneyName: String, moneyData: Money) -> String {
