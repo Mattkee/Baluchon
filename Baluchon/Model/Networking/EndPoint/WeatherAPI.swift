@@ -26,7 +26,7 @@ struct WeatherAPI: EndPointType {
         return .requestParameters(bodyParameters: nil, urlParameters: ["q":q, "format":"json"])
     }
     
-    var headers: HTTPHeaders?{
-        return nil
-    }
+//    var headers: HTTPHeaders?{
+//        return nil
+//    }
 }

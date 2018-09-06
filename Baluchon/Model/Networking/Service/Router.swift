@@ -34,13 +34,13 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         request.httpMethod = route.httpMethod.rawValue
         do {
             switch route.task {
-            case .request:
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//            case .request:
+//                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             case .requestParameters(let bodyParameters, let urlParameters):
                 try self.configureParameters(bodyParameters: bodyParameters, urlParameters: urlParameters, request: &request)
-            case .requestParametersAndHeaders(let bodyParameters, let urlParameters, let additionalHeaders):
-                self.addAdditionalHeaders(additionalHeaders, request: &request)
-                try self.configureParameters(bodyParameters: bodyParameters, urlParameters: urlParameters, request: &request)
+//            case .requestParametersAndHeaders(let bodyParameters, let urlParameters, let additionalHeaders):
+//                self.addAdditionalHeaders(additionalHeaders, request: &request)
+//                try self.configureParameters(bodyParameters: bodyParameters, urlParameters: urlParameters, request: &request)
             }
             return request
         } catch {
@@ -61,10 +61,10 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         }
     }
 
-    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
-        guard let headers = additionalHeaders else { return }
-        for (key, value) in headers {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-    }
+//    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
+//        guard let headers = additionalHeaders else { return }
+//        for (key, value) in headers {
+//            request.setValue(value, forHTTPHeaderField: key)
+//        }
+//    }
 }
