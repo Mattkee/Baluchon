@@ -8,18 +8,46 @@
 
 import Foundation
 
-class Router<EndPoint: EndPointType>: NetworkRouter {
+class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
     private var task: URLSessionTask?
+    let networkManager = NetworkManager()
 
-    func request(_ route: EndPoint,_ session: URLSession, completion: @escaping NetworkRouterCompletion) {
+    func request(_ route: EndPoint,_ session: URLSession,_ objet: Objet.Type, completion: @escaping NetworkRouterCompletion) {
 
         do {
             let request = try self.buildRequest(from: route)
             task = session.dataTask(with: request, completionHandler: { data, response, error in
-                completion(data, response, error)
+                guard error == nil else {
+                    print("Please check your network connection.")
+                    completion(nil,nil, error, nil)
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    print("Please check check your API documentation")
+                    completion(nil,nil, error, nil)
+                    return
+                }
+                let result = self.networkManager.handleNetworkResponse(response)
+                switch result {
+                case .success :
+                    guard let responseData = data else {
+                        print(NetworkResponse.noData.rawValue)
+                        completion(nil, nil, nil, nil)
+                        return
+                    }
+                    guard let objet = try? JSONDecoder().decode(objet.self, from: responseData) else {
+                        print(NetworkResponse.unableToDecode.rawValue)
+                        completion(nil, nil, nil, nil)
+                        return
+                    }
+                    completion(nil, nil, nil, objet)
+                case . failure(let networkFailureError) :
+                    print(networkFailureError)
+                    completion(nil, nil, nil, nil)
+                }
             })
         } catch {
-            completion(nil,nil, error)
+            completion(nil,nil, error, nil)
         }
         self.task?.resume()
     }

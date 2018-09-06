@@ -62,7 +62,7 @@ extension ChangeService {
 }
 // MARK: - Network Call
 extension ChangeService {
-    func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
+    func getChange(callback: @escaping (Bool, Change?, Money?, String?) -> Void) {
         changeRouter.request(changeAPI, changeSession) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
