@@ -63,9 +63,9 @@ extension ChangeService {
 // MARK: - Network Call
 extension ChangeService {
     func getChange(callback: @escaping (String?, Change?, Money?) -> Void) {
-        changeRouter.request(changeAPI, changeSession, Change.self) { (success, error, object) in
+        changeRouter.request(changeAPI, changeSession, Change.self) { (error, object) in
             DispatchQueue.main.async {
-                guard success! else {
+                guard error == nil else {
                     callback(error, nil, nil)
                     return
                 }
@@ -82,9 +82,9 @@ extension ChangeService {
     }
 
     private func getMoney(completionHandler: @escaping (String?, Money?) -> Void) {
-        moneyRouter.request(moneyAPI, moneySession, Money.self) { (success, error, object) in
+        moneyRouter.request(moneyAPI, moneySession, Money.self) { (error, object) in
             DispatchQueue.main.async {
-                guard success! else {
+                guard error == nil else {
                     completionHandler(error, nil)
                     return
                 }

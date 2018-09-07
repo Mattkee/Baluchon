@@ -29,7 +29,7 @@ class TranslateService {
 extension TranslateService {
     private func createTranslateBodyRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> [String:String] {
         
-        return ["source":languageToTranslate, /*"target":languageTranslated,*/ "q":textToTranslate, "format":"text"]
+        return ["source":languageToTranslate, "target":languageTranslated, "q":textToTranslate, "format":"text"]
     }
     private func createLanguageBodyRequest() -> [String:String] {
 
@@ -43,9 +43,9 @@ extension TranslateService {
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (String?, Translate?) -> Void) {
 
         translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
-        translateRouter.request(translateAPI, translateSession, Translate.self) { (success, error, object) in
+        translateRouter.request(translateAPI, translateSession, Translate.self) { (error, object) in
             DispatchQueue.main.async {
-                guard success! else {
+                guard error == nil else {
                     callback(error, nil)
                     return
                 }
@@ -59,9 +59,9 @@ extension TranslateService {
     func getLanguage(completionHandler: @escaping (String?, Language?) -> Void) {
 
         languageAPI.body = createLanguageBodyRequest()
-        languageRouter.request(languageAPI, languageSession, Language.self) { (success, error, object) in
+        languageRouter.request(languageAPI, languageSession, Language.self) { (error, object) in
             DispatchQueue.main.async {
-                guard success! else {
+                guard error == nil else {
                     completionHandler(error, nil)
                     return
                 }

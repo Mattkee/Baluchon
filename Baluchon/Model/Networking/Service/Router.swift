@@ -19,12 +19,12 @@ class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
             task = session.dataTask(with: request, completionHandler: { data, response, error in
                 guard error == nil else {
                     print("Please check your network connection.")
-                    completion(false, CustomerDisplayError.network.rawValue, nil)
+                    completion(CustomerDisplayError.network.rawValue, nil)
                     return
                 }
                 guard let response = response as? HTTPURLResponse else {
                     print("Please check check your API documentation")
-                    completion(false, CustomerDisplayError.update.rawValue, nil)
+                    completion(CustomerDisplayError.update.rawValue, nil)
                     return
                 }
 
@@ -33,23 +33,23 @@ class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
                 case .success :
                     guard let responseData = data else {
                         print(NetworkResponse.noData.rawValue)
-                        completion(false, CustomerDisplayError.update.rawValue, nil)
+                        completion(CustomerDisplayError.update.rawValue, nil)
                         return
                     }
                     guard let objet = try? JSONDecoder().decode(objet.self, from: responseData) else {
                         print(NetworkResponse.unableToDecode.rawValue)
-                        completion(false, CustomerDisplayError.update.rawValue, nil)
+                        completion(CustomerDisplayError.update.rawValue, nil)
                         return
                     }
-                    completion(true, nil, objet)
+                    completion(nil, objet)
                 case . failure(let networkFailureError) :
                     print(networkFailureError)
-                    completion(false, CustomerDisplayError.update.rawValue, nil)
+                    completion(CustomerDisplayError.update.rawValue, nil)
                     return
                 }
             })
         } catch {
-            completion(false, CustomerDisplayError.update.rawValue, nil)
+            completion(CustomerDisplayError.update.rawValue, nil)
         }
         self.task?.resume()
     }
