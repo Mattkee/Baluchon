@@ -33,14 +33,10 @@ class ChangeService {
 extension ChangeService {
     func changeMoney(changeNeed: Double, numberNeedToConvert: String, moneySelectedValueForOneEuro: Double) -> Double {
         var number: Double
-        if numberNeedToConvert.last == "." {
-            number = Double(numberNeedToConvert + "0")!
-        } else {
-            guard (Double(numberNeedToConvert) != nil) else {
-                return 0
-            }
-            number = Double(numberNeedToConvert)!
+        guard (Double(numberNeedToConvert) != nil) else {
+            return 0
         }
+        number = Double(numberNeedToConvert)!
         var result : Double
         if moneySelectedValueForOneEuro == 1.0 {
             result = number * changeNeed
