@@ -19,9 +19,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(change)
             expectation.fulfill()
         }
@@ -37,9 +37,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(change)
             XCTAssertNil(money)
             expectation.fulfill()
@@ -59,9 +59,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(change)
             expectation.fulfill()
         }
@@ -80,9 +80,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(change)
             expectation.fulfill()
         }
@@ -90,7 +90,7 @@ class ChangeServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
 
-    func testGetQuoteShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
+    func testGetQuoteShouldPosterrorCallbackIfNoErrorAndCorrectData() {
         // Given
         let changeService = ChangeService(
             changeSession: URLSessionFake(
@@ -103,9 +103,9 @@ class ChangeServiceTestCase: XCTestCase {
                 error: nil))
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertTrue(success)
+            XCTAssertNil(error)
             XCTAssertNotNil(change)
             XCTAssertNotNil(money)
 
@@ -462,9 +462,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(money)
             expectation.fulfill()
         }
@@ -480,9 +480,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(money)
             expectation.fulfill()
         }
@@ -501,9 +501,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(money)
             expectation.fulfill()
         }
@@ -522,9 +522,9 @@ class ChangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (error, change, money) in
             // Then
-            XCTAssertFalse(success)
+            XCTAssertNotNil(error)
             XCTAssertNil(money)
             expectation.fulfill()
         }

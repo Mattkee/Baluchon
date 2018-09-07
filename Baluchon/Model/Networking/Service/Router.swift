@@ -27,6 +27,7 @@ class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
                     completion(false, CustomerDisplayError.update.rawValue, nil)
                     return
                 }
+
                 let result = self.networkManager.handleNetworkResponse(response)
                 switch result {
                 case .success :
