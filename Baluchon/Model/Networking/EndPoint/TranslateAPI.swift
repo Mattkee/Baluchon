@@ -25,8 +25,4 @@ struct TranslateAPI: EndPointType {
         
         return .requestParameters(bodyParameters: body, urlParameters: ["key":Constant.googleAPIKey])
     }
-    
-//    var headers: HTTPHeaders? {
-//        return nil
-//    }
 }

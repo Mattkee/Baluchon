@@ -32,21 +32,19 @@ extension AddNewCityViewController {
         self.weatherIcon.isHidden = false
         city = [String]()
         city.append(sender.text!)
-        weaterService.getWeather(city: city) { (success, error, weather) in
-            
-            if success {
-                self.weather = weather
-                
-                self.cityName.text = weather?.query.results.channel[0].location.city
-                let temperature = (weather?.query.results.channel[0].item.condition.temp)!
-                self.cityTemp.text = "\(temperature)°C"
-                self.weatherIcon.image = UIImage(named: self.weaterService.setImage((weather?.query.results.channel[0].item.condition.code)!))
-                self.cityStackView.isHidden = false
-                self.addNewCityButton.isHidden = false
-                
-            } else {
+        weaterService.getWeather(city: city) { (error, weather) in
+            guard error == nil else {
                 self.showAlert(title: "Echec Appel réseau", message: error!)
+                return
             }
+            self.weather = weather
+            
+            self.cityName.text = weather?.query.results.channel[0].location.city
+            let temperature = (weather?.query.results.channel[0].item.condition.temp)!
+            self.cityTemp.text = "\(temperature)°C"
+            self.weatherIcon.image = UIImage(named: self.weaterService.setImage((weather?.query.results.channel[0].item.condition.code)!))
+            self.cityStackView.isHidden = false
+            self.addNewCityButton.isHidden = false
         }
     }
 

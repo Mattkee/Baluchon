@@ -47,25 +47,23 @@ extension ChangeViewController {
         toggleActivityIndicator(shown: true)
         nameList = [String]()
         
-        changeService.getChange { (success, error, change, money) in
+        changeService.getChange { (error, change, money) in
             self.toggleActivityIndicator(shown: false)
-            
-            if success {
-                self.money = money
-                self.change = change
-                
-                for (_, name) in (self.money?.symbols)! {
-                    self.nameList.append(name)
-                }
-                self.nameList.sort()
-                self.pickerViewMoneyToConvert.reloadComponent(0)
-                self.pickerViewConvertedMoney.reloadComponent(0)
-                self.pickerViewMoneyToConvert.selectRow(self.nameList.index(of: "Euro")!, inComponent: 0, animated: false)
-                self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
-                
-            } else {
+            guard error == nil else {
                 self.showAlert(title: "Echec Appel réseau", message: error!)
+                return
             }
+            self.money = money
+            self.change = change
+            
+            for (_, name) in (self.money?.symbols)! {
+                self.nameList.append(name)
+            }
+            self.nameList.sort()
+            self.pickerViewMoneyToConvert.reloadComponent(0)
+            self.pickerViewConvertedMoney.reloadComponent(0)
+            self.pickerViewMoneyToConvert.selectRow(self.nameList.index(of: "Euro")!, inComponent: 0, animated: false)
+            self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
         }
     }
 

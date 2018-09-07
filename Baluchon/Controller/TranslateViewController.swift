@@ -32,14 +32,13 @@ class TranslateViewController: UIViewController {
     // MARK: - Action
     @IBAction func translateText(_ sender: UIButton) {
         selectedPickerText()
-        translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, error, translate) in
-            
-            if success {
-                self.textTranslated.text = translate?.data.translations[0].translatedText
-                self.textToTranslate.resignFirstResponder()
-            } else {
+        translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (error, translate) in
+            guard error == nil else {
                 self.showAlert(title: "Echec Appel réseau", message: error!)
+                return
             }
+            self.textTranslated.text = translate?.data.translations[0].translatedText
+            self.textToTranslate.resignFirstResponder()
         }
     }
 }
@@ -47,23 +46,23 @@ class TranslateViewController: UIViewController {
 // MARK: - Methods
 extension TranslateViewController {
     private func refresh() {
-        translateService.getLanguage { (success, error, language) in
-            
-            if success {
-                self.language = language
-                for language in (language?.data.languages)! {
-                    self.languageList.append(language.name)
-                }
-                self.languageList.sort()
-                self.textToTranslatePicker.reloadComponent(0)
-                self.textTranslatedPicker.reloadComponent(0)
-                self.textToTranslatePicker.selectRow(self.languageList.index(of: "Français")!, inComponent: 0, animated: false)
-                self.textTranslatedPicker.selectRow(self.languageList.index(of: "Anglais")!, inComponent: 0, animated: false)
-            } else {
+        translateService.getLanguage { (error, language) in
+            guard error == nil else {
                 self.showAlert(title: "Echec Appel réseau", message: error!)
+                return
             }
+            self.language = language
+            for language in (language?.data.languages)! {
+                self.languageList.append(language.name)
+            }
+            self.languageList.sort()
+            self.textToTranslatePicker.reloadComponent(0)
+            self.textTranslatedPicker.reloadComponent(0)
+            self.textToTranslatePicker.selectRow(self.languageList.index(of: "Français")!, inComponent: 0, animated: false)
+            self.textTranslatedPicker.selectRow(self.languageList.index(of: "Anglais")!, inComponent: 0, animated: false)
         }
     }
+
     private func selectedPickerText() {
         for language in (language?.data.languages)! {
             if language.name == languageList[textToTranslatePicker.selectedRow(inComponent: 0)] {
