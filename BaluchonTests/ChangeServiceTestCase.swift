@@ -32,7 +32,7 @@ class ChangeServiceTestCase: XCTestCase {
     func testGetChangeShouldPostFailedCallbackIfNoData() {
         // Given
         let changeService = ChangeService(
-            changeSession: URLSessionFake(data: nil, response: nil, error: nil),
+            changeSession: URLSessionFake(data: nil, response: FakeChangeResponseData.responseOK, error: nil),
             moneySession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
@@ -533,32 +533,68 @@ class ChangeServiceTestCase: XCTestCase {
     }
 
     func testChangeNeedIsTwoAndNumberNeedToConvertIsTwoAndMoneySelectedValueForOneEuroIsOneWhenCalculateThenResultIsFour() {
-        let changeService = ChangeService()
-
-        let result = changeService.changeMoney(changeNeed: 2.0, numberNeedToConvert: "2", moneySelectedValueForOneEuro: 1.0)
-
-        XCTAssertEqual(result, 4.0)
-    }
-    func testChangeNeedIsTwoAndNumberNeedToConvertIsTwoPointAndMoneySelectedValueForOneEuroIsOneWhenCalculateThenResultIsFour() {
-        let changeService = ChangeService()
+        // Given
+        let changeService = ChangeService(
+            changeSession: URLSessionFake(
+                data: FakeChangeResponseData.changeCorrectData,
+                response: FakeChangeResponseData.responseOK,
+                error: nil),
+            moneySession: URLSessionFake(data: FakeMoneyResponseData.moneyCorrectData, response: FakeMoneyResponseData.responseOK, error: nil))
         
-        let result = changeService.changeMoney(changeNeed: 2.0, numberNeedToConvert: "2.", moneySelectedValueForOneEuro: 1.0)
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        changeService.getChange { (error, change, money) in
+            // Then
+            let result = changeService.changeMoney("Euro", "United States Dollar", "2.0", change!, money!)
+            let resultReference = 2.0*1.157093
         
-        XCTAssertEqual(result, 4.0)
+            XCTAssertEqual(result, resultReference)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.01)
     }
     func testChangeNeedIsTwoAndNumberNeedToConvertIsNilAndMoneySelectedValueForOneEuroIsOneWhenCalculateThenResultIsFour() {
-        let changeService = ChangeService()
+        // Given
+        let changeService = ChangeService(
+            changeSession: URLSessionFake(
+                data: FakeChangeResponseData.changeCorrectData,
+                response: FakeChangeResponseData.responseOK,
+                error: nil),
+            moneySession: URLSessionFake(data: FakeMoneyResponseData.moneyCorrectData, response: FakeMoneyResponseData.responseOK, error: nil))
         
-        let result = changeService.changeMoney(changeNeed: 2.0, numberNeedToConvert: "", moneySelectedValueForOneEuro: 1.0)
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        changeService.getChange { (error, change, money) in
+            // Then
+            let result = changeService.changeMoney("Euro", "United States Dollar", "", change!, money!)
+            
+            XCTAssertEqual(result, 0.0)
+            expectation.fulfill()
+        }
         
-        XCTAssertEqual(result, 0)
+        wait(for: [expectation], timeout: 0.01)
     }
-    func testChangeNeedIsTwoAndNumberNeedToConvertIsTwoAndMoneySelectedValueForOneEuroIsTwoWhenCalculateThenResultIsFour() {
-        let changeService = ChangeService()
+    func testChangeNeedIsTenYuanAndNumberNeedToConvertIsTwoAndMoneySelectedIsDollarWhenCalculateThenResultIsFour() {
+        // Given
+        let changeService = ChangeService(
+            changeSession: URLSessionFake(
+                data: FakeChangeResponseData.changeCorrectData,
+                response: FakeChangeResponseData.responseOK,
+                error: nil),
+            moneySession: URLSessionFake(data: FakeMoneyResponseData.moneyCorrectData, response: FakeMoneyResponseData.responseOK, error: nil))
         
-        let result = changeService.changeMoney(changeNeed: 2.0, numberNeedToConvert: "2", moneySelectedValueForOneEuro: 2)
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        changeService.getChange { (error, change, money) in
+            // Then
+            let result = changeService.changeMoney("Chinese Yuan", "United States Dollar", "10", change!, money!)
+            let resultReference = 10/7.968433*1.157093
+            XCTAssertEqual(result, resultReference)
+            expectation.fulfill()
+        }
         
-        XCTAssertEqual(result, 2)
+        wait(for: [expectation], timeout: 0.01)
     }
     func testSearchMoneyAbreviationForEuroWhenSearchThenResultIsEUR() {
         let changeService = ChangeService()

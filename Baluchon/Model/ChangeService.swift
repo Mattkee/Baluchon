@@ -31,18 +31,24 @@ class ChangeService {
 
 // MARK: - Calculs
 extension ChangeService {
-    func changeMoney(changeNeed: Double, numberNeedToConvert: String, moneySelectedValueForOneEuro: Double) -> Double {
+    func changeMoney(_ moneyToConvertName: String, _ moneyConvertedName: String,_ valueNeedToConvert: String,_ change: Change,_ money: Money) -> Double {
+
+        let abreviationOne = searchMoney(moneyName: moneyToConvertName, moneyData: money)
+        let abreviationTwo = searchMoney(moneyName: moneyConvertedName, moneyData: money)
+        let moneySelectedValueForOneEuro = change.rates[abreviationOne]!
+        let currencyWeNeed = change.rates[abreviationTwo]!
+
         var number: Double
-        guard (Double(numberNeedToConvert) != nil) else {
+        guard (Double(valueNeedToConvert) != nil) else {
             return 0
         }
-        number = Double(numberNeedToConvert)!
+        number = Double(valueNeedToConvert)!
         var result : Double
         if moneySelectedValueForOneEuro == 1.0 {
-            result = number * changeNeed
+            result = number * currencyWeNeed
         } else {
             let numberToConvert = number / moneySelectedValueForOneEuro
-            result = numberToConvert * changeNeed
+            result = numberToConvert * currencyWeNeed
         }
         return result
     }

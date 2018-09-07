@@ -77,16 +77,11 @@ extension ChangeViewController {
 
 // MARK: - Display preparation and result
 extension ChangeViewController {
-    private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _
-        moneyData: Money, _ sender: UITextField) {
+    private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _ sender: UITextField) {
         guard sender.hasText else {
             return
         }
-        let abreviationOne = changeService.searchMoney(moneyName: moneyToConvertName, moneyData: money!)
-        
-        let abreviationTwo = changeService.searchMoney(moneyName: moneyConvertedName, moneyData: money!)
-        
-        let result = changeService.changeMoney(changeNeed: (change?.rates[abreviationTwo])!, numberNeedToConvert: sender.text!, moneySelectedValueForOneEuro: (change?.rates[abreviationOne])!)
+        let result = changeService.changeMoney(moneyToConvertName, moneyConvertedName, sender.text!, change!, money!)
         let textField : UITextField
         if sender == convertedCurrency {
             textField = currencyToConvert
@@ -113,12 +108,12 @@ extension ChangeViewController {
 
     @IBAction func changeValueOne(_ sender: UITextField) {
         selectedPickerText()
-        changeValueText(labelMoneyToConvert, labelConvertedMoney, money!, sender)
+        changeValueText(labelMoneyToConvert, labelConvertedMoney, sender)
     }
 
     @IBAction func changeValueTwo(_ sender: UITextField) {
         selectedPickerText()
-        changeValueText(labelConvertedMoney, labelMoneyToConvert, money!, sender)
+        changeValueText(labelConvertedMoney, labelMoneyToConvert, sender)
     }
 
     @IBAction func refreshButton(_ sender: UIBarButtonItem) {
@@ -155,10 +150,10 @@ extension ChangeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == pickerViewMoneyToConvert {
             selectedPickerText()
-            changeValueText(labelMoneyToConvert, labelConvertedMoney, money!, currencyToConvert)
+            changeValueText(labelMoneyToConvert, labelConvertedMoney, currencyToConvert)
         } else {
             selectedPickerText()
-            changeValueText(labelConvertedMoney, labelMoneyToConvert, money!, convertedCurrency)
+            changeValueText(labelConvertedMoney, labelMoneyToConvert, convertedCurrency)
         }
     }
 }
