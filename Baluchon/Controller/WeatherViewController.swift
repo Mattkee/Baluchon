@@ -27,14 +27,14 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController {
     private func refresh() {
         
-        weatherService.getWeather(city: allCity) { (success, weather) in
+        weatherService.getWeather(city: allCity) { (success, error, weather) in
             
             if success {
                 WeatherViewController.weather = weather
                 
                 self.tableView.reloadData()
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                self.showAlert(title: "Echec Appel réseau", message: error!)
             }
         }
     }

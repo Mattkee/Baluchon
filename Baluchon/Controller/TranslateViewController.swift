@@ -32,13 +32,13 @@ class TranslateViewController: UIViewController {
     // MARK: - Action
     @IBAction func translateText(_ sender: UIButton) {
         selectedPickerText()
-        translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, translate) in
+        translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (success, error, translate) in
             
             if success {
                 self.textTranslated.text = translate?.data.translations[0].translatedText
                 self.textToTranslate.resignFirstResponder()
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                self.showAlert(title: "Echec Appel réseau", message: error!)
             }
         }
     }
@@ -47,7 +47,7 @@ class TranslateViewController: UIViewController {
 // MARK: - Methods
 extension TranslateViewController {
     private func refresh() {
-        translateService.getLanguage { (success, language) in
+        translateService.getLanguage { (success, error, language) in
             
             if success {
                 self.language = language
@@ -60,7 +60,7 @@ extension TranslateViewController {
                 self.textToTranslatePicker.selectRow(self.languageList.index(of: "Français")!, inComponent: 0, animated: false)
                 self.textTranslatedPicker.selectRow(self.languageList.index(of: "Anglais")!, inComponent: 0, animated: false)
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                self.showAlert(title: "Echec Appel réseau", message: error!)
             }
         }
     }

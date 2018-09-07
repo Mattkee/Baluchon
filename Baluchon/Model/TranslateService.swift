@@ -29,7 +29,7 @@ class TranslateService {
 extension TranslateService {
     private func createTranslateBodyRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> [String:String] {
         
-        return ["source":languageToTranslate, "target":languageTranslated, "q":textToTranslate, "format":"text"]
+        return ["source":languageToTranslate, /*"target":languageTranslated,*/ "q":textToTranslate, "format":"text"]
     }
     private func createLanguageBodyRequest() -> [String:String] {
 
@@ -40,33 +40,33 @@ extension TranslateService {
 // MARK: - Network Call
 extension TranslateService {
     // MARK: - Translate Network Call
-    func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
+    func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, String?, Translate?) -> Void) {
 
         translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
-        translateRouter.request(translateAPI, translateSession, Translate.self) { (data, response, error, object) in
+        translateRouter.request(translateAPI, translateSession, Translate.self) { (success, error, object) in
             DispatchQueue.main.async {
-                guard error == nil else {
-                    callback(false, nil)
+                guard success! else {
+                    callback(false, error, nil)
                     return
                 }
                 let translate = object as? Translate
-                callback(true, translate)
+                callback(true, nil, translate)
             }
         }
     }
 
     // MARK: - Language network Call
-    func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
+    func getLanguage(completionHandler: @escaping (Bool, String?, Language?) -> Void) {
 
         languageAPI.body = createLanguageBodyRequest()
-        languageRouter.request(languageAPI, languageSession, Language.self) { (data, response, error, object) in
+        languageRouter.request(languageAPI, languageSession, Language.self) { (success, error, object) in
             DispatchQueue.main.async {
-                guard error == nil else {
-                    completionHandler(false, nil)
+                guard success! else {
+                    completionHandler(false, error, nil)
                     return
                 }
                 let language = object as? Language
-                completionHandler(true, language)
+                completionHandler(true, nil, language)
             }
         }
     }

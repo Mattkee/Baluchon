@@ -59,16 +59,16 @@ class WeatherService {
     }
 
     // MARK: - Weather Network Call
-    func getWeather(city: [String], callback: @escaping (Bool, Weather?) -> Void) {
+    func getWeather(city: [String], callback: @escaping (Bool, String?, Weather?) -> Void) {
         weatherAPI.bodyText = prepareCityText(city)
-        weatherRouter.request(weatherAPI, weatherSession, Weather.self) { (data, response, error, object) in
+        weatherRouter.request(weatherAPI, weatherSession, Weather.self) { (success, error, object) in
             DispatchQueue.main.async {
-                guard error == nil else {
-                    callback(false, nil)
+                guard success! else {
+                    callback(false, error, nil)
                     return
                 }
                 let weather = object as? Weather
-                callback(true, weather)
+                callback(true, nil, weather)
             }
         }
     }

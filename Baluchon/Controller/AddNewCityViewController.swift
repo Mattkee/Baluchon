@@ -32,7 +32,7 @@ extension AddNewCityViewController {
         self.weatherIcon.isHidden = false
         city = [String]()
         city.append(sender.text!)
-        weaterService.getWeather(city: city) { (success, weather) in
+        weaterService.getWeather(city: city) { (success, error, weather) in
             
             if success {
                 self.weather = weather
@@ -45,7 +45,7 @@ extension AddNewCityViewController {
                 self.addNewCityButton.isHidden = false
                 
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                self.showAlert(title: "Echec Appel réseau", message: error!)
             }
         }
     }

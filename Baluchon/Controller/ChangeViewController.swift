@@ -47,7 +47,7 @@ extension ChangeViewController {
         toggleActivityIndicator(shown: true)
         nameList = [String]()
         
-        changeService.getChange { (success, change, money) in
+        changeService.getChange { (success, error, change, money) in
             self.toggleActivityIndicator(shown: false)
             
             if success {
@@ -64,7 +64,7 @@ extension ChangeViewController {
                 self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
                 
             } else {
-                self.showAlert(title: "Echec Appel réseau", message: "rafraichir les données")
+                self.showAlert(title: "Echec Appel réseau", message: error!)
             }
         }
     }

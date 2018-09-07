@@ -62,34 +62,34 @@ extension ChangeService {
 }
 // MARK: - Network Call
 extension ChangeService {
-    func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
-        changeRouter.request(changeAPI, changeSession, Change.self) { (data, response, error, object) in
+    func getChange(callback: @escaping (Bool, String?, Change?, Money?) -> Void) {
+        changeRouter.request(changeAPI, changeSession, Change.self) { (success, error, object) in
             DispatchQueue.main.async {
-                guard error == nil else {
-                    callback(false, nil, nil)
+                guard success! else {
+                    callback(false, error, nil, nil)
                     return
                 }
-                self.getMoney { (money) in
+                self.getMoney { (error, money) in
                     guard let money = money else {
-                        callback(false, nil, nil)
+                        callback(false, error, nil, nil)
                         return
                     }
                     let change = object as? Change
-                    callback(true, change, money)
+                    callback(true, nil, change, money)
                 }
             }
         }
     }
 
-    private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
-        moneyRouter.request(moneyAPI, moneySession, Money.self) { (data, response, error, object) in
+    private func getMoney(completionHandler: @escaping (String?, Money?) -> Void) {
+        moneyRouter.request(moneyAPI, moneySession, Money.self) { (success, error, object) in
             DispatchQueue.main.async {
-                guard error == nil else {
-                    completionHandler(nil)
+                guard success! else {
+                    completionHandler(error, nil)
                     return
                 }
                let money = object as? Money
-                completionHandler(money)
+                completionHandler(nil, money)
             }
         }
     }

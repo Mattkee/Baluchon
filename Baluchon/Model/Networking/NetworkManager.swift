@@ -31,6 +31,11 @@ enum NetworkResponse:String {
     case unableToDecode = "We could not decode the response."
 }
 
+enum CustomerDisplayError: String {
+    case update = "Problème de mise à jour de l'application, rééssayez ou contactez le développeur"
+    case network = "Votre réseau rencontre des problèmes, essayez de rafraîchir les données"
+}
+
 enum Result<String>{
     case success
     case failure(String)
