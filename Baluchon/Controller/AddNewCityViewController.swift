@@ -28,8 +28,7 @@ class AddNewCityViewController: UIViewController {
 extension AddNewCityViewController {
 
     @IBAction func searchCity(_ sender: UITextField) {
-        self.cityTemp.isHidden = false
-        self.weatherIcon.isHidden = false
+
         city = [String]()
         city.append(sender.text!)
         weaterService.getWeather(city: city) { (error, weather) in
@@ -50,10 +49,6 @@ extension AddNewCityViewController {
 
     @IBAction func addNewCity(_ sender: UIButton) {
         Constant.allCity.append(cityName.text!)
-        self.cityName.text = "Ville ajoutée"
-        self.cityTemp.isHidden = true
-        self.weatherIcon.isHidden = true
-        self.addNewCityButton.isHidden = true
 
         navigationController?.popViewController(animated: true)
     }
