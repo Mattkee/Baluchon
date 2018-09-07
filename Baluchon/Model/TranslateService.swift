@@ -29,7 +29,7 @@ class TranslateService {
 extension TranslateService {
     private func createTranslateBodyRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> [String:String] {
         
-        return ["source":languageToTranslate, /*"target":languageTranslated,*/ "q":textToTranslate, "format":"text"]
+        return ["source":languageToTranslate, "target":languageTranslated, "q":textToTranslate, "format":"text"]
     }
     private func createLanguageBodyRequest() -> [String:String] {
 
