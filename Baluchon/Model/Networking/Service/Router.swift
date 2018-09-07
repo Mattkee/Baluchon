@@ -32,18 +32,18 @@ class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
                 case .success :
                     guard let responseData = data else {
                         print(NetworkResponse.noData.rawValue)
-                        completion(nil, nil, nil, nil)
+                        completion(nil, nil, error, nil)
                         return
                     }
                     guard let objet = try? JSONDecoder().decode(objet.self, from: responseData) else {
                         print(NetworkResponse.unableToDecode.rawValue)
-                        completion(nil, nil, nil, nil)
+                        completion(nil, nil, error, nil)
                         return
                     }
-                    completion(nil, nil, nil, objet)
+                    completion(data, response, error, objet)
                 case . failure(let networkFailureError) :
                     print(networkFailureError)
-                    completion(nil, nil, nil, nil)
+                    completion(nil, nil, error, nil)
                 }
             })
         } catch {

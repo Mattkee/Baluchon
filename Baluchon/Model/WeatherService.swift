@@ -12,7 +12,7 @@ class WeatherService {
 
     // MARK: - Properties
     private var weatherAPI = WeatherAPI()
-    let weatherRouter = Router<WeatherAPI>()
+    let weatherRouter = Router<WeatherAPI, Weather>()
 
     private var weatherSession = URLSession(configuration: .default)
 
@@ -61,20 +61,13 @@ class WeatherService {
     // MARK: - Weather Network Call
     func getWeather(city: [String], callback: @escaping (Bool, Weather?) -> Void) {
         weatherAPI.bodyText = prepareCityText(city)
-        weatherRouter.request(weatherAPI, weatherSession) { (data, response, error) in
+        weatherRouter.request(weatherAPI, weatherSession, Weather.self) { (data, response, error, object) in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
+                guard error == nil else {
                     callback(false, nil)
                     return
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
-                    return
-                }
-                guard let weather = try? JSONDecoder().decode(Weather.self, from: data) else {
-                    callback(false, nil)
-                    return
-                }
+                let weather = object as? Weather
                 callback(true, weather)
             }
         }

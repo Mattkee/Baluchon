@@ -13,8 +13,8 @@ class TranslateService {
     // MARK: - Properties
     private var translateAPI = TranslateAPI()
     private var languageAPI = LanguageAPI()
-    let translateRouter = Router<TranslateAPI>()
-    let languageRouter = Router<LanguageAPI>()
+    let translateRouter = Router<TranslateAPI, Translate>()
+    let languageRouter = Router<LanguageAPI, Language>()
 
     private var translateSession = URLSession(configuration: .default)
     private var languageSession = URLSession(configuration: .default)
@@ -43,22 +43,13 @@ extension TranslateService {
     func getTranslate(textToTranslate: String, languageToTranslate: String, languageTranslated: String, callback: @escaping (Bool, Translate?) -> Void) {
 
         translateAPI.body = createTranslateBodyRequest(textToTranslate: textToTranslate, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated)
-        translateRouter.request(translateAPI, translateSession) { (data, response, error) in
+        translateRouter.request(translateAPI, translateSession, Translate.self) { (data, response, error, object) in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    callback(false, nil)
-                    print("er1")
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
-                    print("er2")
-                    return
-                }
-                guard let translate = try? JSONDecoder().decode(Translate.self, from: data) else {
+                guard error == nil else {
                     callback(false, nil)
                     return
                 }
+                let translate = object as? Translate
                 callback(true, translate)
             }
         }
@@ -68,25 +59,14 @@ extension TranslateService {
     func getLanguage(completionHandler: @escaping (Bool, Language?) -> Void) {
 
         languageAPI.body = createLanguageBodyRequest()
-        languageRouter.request(languageAPI, languageSession) { (data, response, error) in
+        languageRouter.request(languageAPI, languageSession, Language.self) { (data, response, error, object) in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
+                guard error == nil else {
                     completionHandler(false, nil)
-                    print("er1")
                     return
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completionHandler(false, nil)
-                    print("er2")
-                    return
-                }
-                do {
-                    let language = try JSONDecoder().decode(Language.self, from: data)
-                    completionHandler(true, language)
-                } catch {
-                    completionHandler(false, nil)
-                    print("er3")
-                }
+                let language = object as? Language
+                completionHandler(true, language)
             }
         }
     }

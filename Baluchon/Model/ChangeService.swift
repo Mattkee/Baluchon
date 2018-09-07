@@ -17,8 +17,8 @@ class ChangeService {
     // MARK: - Properties
     private let changeAPI = ChangeAPI()
     private let moneyAPI = MoneyAPI()    
-    private let changeRouter = Router<ChangeAPI>()
-    private let moneyRouter = Router<MoneyAPI>()
+    private let changeRouter = Router<ChangeAPI, Change>()
+    private let moneyRouter = Router<MoneyAPI, Money>()
 
     private var changeSession = URLSession(configuration: .default)
     private var moneySession = URLSession(configuration: .default)
@@ -62,18 +62,10 @@ extension ChangeService {
 }
 // MARK: - Network Call
 extension ChangeService {
-    func getChange(callback: @escaping (Bool, Change?, Money?, String?) -> Void) {
-        changeRouter.request(changeAPI, changeSession) { (data, response, error) in
+    func getChange(callback: @escaping (Bool, Change?, Money?) -> Void) {
+        changeRouter.request(changeAPI, changeSession, Change.self) { (data, response, error, object) in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    callback(false, nil, nil)
-                    return
-                }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil, nil)
-                    return
-                }
-                guard let change = try? JSONDecoder().decode(Change.self, from: data) else {
+                guard error == nil else {
                     callback(false, nil, nil)
                     return
                 }
@@ -82,6 +74,7 @@ extension ChangeService {
                         callback(false, nil, nil)
                         return
                     }
+                    let change = object as? Change
                     callback(true, change, money)
                 }
             }
@@ -89,22 +82,14 @@ extension ChangeService {
     }
 
     private func getMoney(completionHandler: @escaping ((Money?) -> Void)) {
-        moneyRouter.request(moneyAPI, moneySession) { (data, response, error) in
+        moneyRouter.request(moneyAPI, moneySession, Money.self) { (data, response, error, object) in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
+                guard error == nil else {
                     completionHandler(nil)
                     return
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completionHandler(nil)
-                    return
-                }
-                do {
-                    let money = try JSONDecoder().decode(Money.self, from: data)
-                    completionHandler(money)
-                } catch {
-                    completionHandler(nil)
-                }
+               let money = object as? Money
+                completionHandler(money)
             }
         }
     }
