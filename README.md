@@ -24,5 +24,32 @@ afin de pouvoir convertir les monnaies dans de nombreuses devises, nous allons r
 
     let change = object as? Change
 
+avant de pouvoir utiliser cet objet nous allons chaîner notre appel réseau avec un deuxième appel pour récupérer toujours sur fixer.io avec une deuxième API la liste des monnaies dans un objet et de même que pour les taux créer une propriété appelée *money*.
 
+    let money = object as? Money
+
+Ensuite nous aurons plus qu'à passer les deux objet dans notre callback à notre controller, voici ce que ça donne dans *ChangeService* :
+
+    func getChange(callback: @escaping (String?, Change?, Money?) -> Void) {
+        changeRouter.request(changeAPI, changeSession, Change.self) { (error, object) in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    callback(error, nil, nil)
+                    return
+                }
+                self.getMoney { (error, money) in
+                    guard let money = money else {
+                        callback(error, nil, nil)
+                        return
+                    }
+                    let change = object as? Change
+                    callback(nil, change, money)
+                }
+            }
+        }
+    }
+
+
+
+    
 
