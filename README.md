@@ -77,6 +77,6 @@ par le biais d'Action, elle même appelera la méthode "*changeMoney*" de "*Chan
         return result
     }
 
-Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaies désigné par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*" et ensuite selon le choix de monnaies d'origine et le choix de la dévise souhaitée faire le calcul.
+Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaies désigné par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*" et ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhaitée faire le calcul.
     
 
