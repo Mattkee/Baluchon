@@ -101,3 +101,19 @@ le changement d'un pickerViews changera instantanément la valeur calculé dans 
 Cette fonctionnalités va nous permettre par le biais d'une action dans le controller "*AddNewCityViewController*" de lancer un appel réseau et d'obtenir la météo d'une ville en particulier choisie par l'utilisateur.
 
 ![recherche de la météo à Vannes](ImagesReadme/addNewCity.png)
+
+>> 4. la possibilité d’ajouter ou d’enlever n’importe quelles villes de notre affichage
+
+Cette fonctionnalité consiste en l'ajout d'une tableView qui va permettre l'affichage des villes choisies et va permettre la suppression de celles que l'utilisateur ne voudrait plus.
+
+Afin de pouvoir afficher plusieurs villes, une variables static contenant un array avec le nom des villes préalablement choisies permettra la gestion des villes à afficher par la tableView.
+
+    static var allCity = ["New York","Quimper","Nantes"]
+
+pour ajouter une nouvelle ville un bouton "+" permettra d'accéder à la page d'ajout de villes.
+
+> Une bonne animation valant mieux qu'un long discours :
+
+![fonctionnement de la fonction météo](ImagesReadme/weather.gif)
+
+
