@@ -18,6 +18,7 @@ Baluchon est un sac de voyage virtuel avec des outils indispensables pour les vo
 > 6. la possibilité de traduire dans n’importe quelles langues proposées.
 
 ### Implémentation des Bonus
+
 >> 1. La conversion de monnaies dans de nombreuses devises
 
 afin de pouvoir convertir les monnaies dans de nombreuses devises, nous allons récupérer tous les taux de changes proposés par fixer.io dans un objet grâce à notre appel réseau et créer une propriété "*change*" avec cet objet.
@@ -81,6 +82,7 @@ Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviati
 
 Ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhaitée, cette méthode va faire le calcul.
 
+
 >>  2. la conversion de monnaies peut ce faire de n’importe quelle monnaie à n’importe quelle monnaie parmi celles proposées
 
 Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués la conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
@@ -92,3 +94,10 @@ le changement d'un pickerViews changera instantanément la valeur calculé dans 
 > Voici une animation présentant ce bonus.
 
 ![démonstration du bonus](ImagesReadme/tauxdechange.gif)
+
+
+>> 3. la possibilité d’afficher la météo de nombreuses villes dans le monde.
+
+Cette fonctionnalités va nous permettre par le biais d'une action dans le controller "*AddNewCityViewController*" de lancer un appel réseau et d'obtenir la météo d'une ville en particulier choisie par l'utilisateur.
+
+![recherche de la météo à Vannes](ImagesReadme/addNewCity.png)
