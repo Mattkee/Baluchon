@@ -19,3 +19,10 @@ Baluchon est un sac de voyage virtuel avec des outils indispensables pour les vo
 
 ### Implémentation des Bonus
 >> 1. La conversion de monnaies dans de nombreuses devises
+
+afin de pouvoir convertir les monnaies dans de nombreuses devises, nous allons récupérer tous les taux de changes proposés par fixer.io dans un objet grâce à notre appel réseau et créer une propriété *change* avec cet objet.
+
+    let change = object as? Change
+
+
+
