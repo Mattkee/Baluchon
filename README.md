@@ -117,3 +117,42 @@ pour ajouter une nouvelle ville un bouton "+" permettra d'accéder à la page d'
 ![fonctionnement de la fonction météo](ImagesReadme/weather.gif)
 
 
+>> 5. Un sélecteur pour échanger la langue d'origine et la langue de destination pour la traduction.
+
+Ce sélecteur consiste en deux pickerViews placé au dessus des textViews, qui vont permettre de changer la langue d'origine et la langue de destination.
+
+ces pickerViews sont alimentés par un appel réseau via une API de Google qui va récupérer la liste des langues supportées par l'API de traduction de Google.
+
+    func getLanguage(completionHandler: @escaping (String?, Language?) -> Void) {
+        languageAPI.body = createLanguageBodyRequest()
+        languageRouter.request(languageAPI, languageSession, Language.self) { (error, object) in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    completionHandler(error, nil)
+                    return
+                }
+                let language = object as? Language
+                completionHandler(nil, language)
+            }
+        }
+    }
+
+L'objet "*language*" renvoyé par le completionHandler va permettre de créer un tableau avec le nom des langues disponible pour la traduction.
+
+
+>> 6. la possibilité de traduire dans n’importe quelles langues proposées.
+
+Avec le choix des langues effectuées par le biais des pickerViews, l'appel réseau va pouvoir préciser dans la requête la langue d'origine et la langue de destination et ainsi permettre la traduction dans les langues choisies.
+
+la création de cette partie de la requête se fera via une méthode renseigné par le viewController via des paramètres.
+
+**voici comment va se créer la partie de la requête concernant ce choix de langues :**
+
+    private func createTranslateBodyRequest(textToTranslate: String, languageToTranslate: String, languageTranslated: String) -> [String:String] {
+        return ["source":languageToTranslate, "target":languageTranslated, "q":textToTranslate, "format":"text"]
+    }
+
+> Pour voir le fonctionnement de ce bonus voici une nouvelle fois une petite animation :
+
+![fonctionnement de la partie traduction](ImagesReadme/translation.gif)
+
