@@ -105,7 +105,7 @@
 		AFCDAAF72135595700981803 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		AFCDAAF921357E9800981803 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		AFD0CE8B2136958B00CDBF79 /* ChangeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAPI.swift; sourceTree = "<group>"; };
-		AFD0CE8D213696B200CDBF79 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Networking/NetworkManager.swift; sourceTree = "<group>"; };
+		AFD0CE8D213696B200CDBF79 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AFD0CE8F2136AB2500CDBF79 /* MoneyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAPI.swift; sourceTree = "<group>"; };
 		AFD0CE912136AE7D00CDBF79 /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		AFD0CE932136DCF500CDBF79 /* TranslateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAPI.swift; sourceTree = "<group>"; };
@@ -136,6 +136,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF2519782143CE6900531103 /* ExchangeRate */ = {
+			isa = PBXGroup;
+			children = (
+				AF89F00E2109D4E90076F295 /* ChangeService.swift */,
+				AF89F010210A6C6D0076F295 /* Change.swift */,
+				AF1338F121143AF6004D60E3 /* Money.swift */,
+			);
+			path = ExchangeRate;
+			sourceTree = "<group>";
+		};
+		AF2519792143CEA100531103 /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				AF1AC716212EAAB500836D57 /* TranslateService.swift */,
+				AF1AC718212EAAD800836D57 /* Translate.swift */,
+				AF1AC71A212EAAE900836D57 /* Language.swift */,
+			);
+			path = Translation;
+			sourceTree = "<group>";
+		};
+		AF25197A2143CEC500531103 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				AFE205D12125D68100249CC6 /* WeatherService.swift */,
+				AFE205D32125D99300249CC6 /* Weather.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		AF25197B2143CF0800531103 /* ExchangeRateController */ = {
+			isa = PBXGroup;
+			children = (
+				AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */,
+			);
+			path = ExchangeRateController;
+			sourceTree = "<group>";
+		};
+		AF25197C2143CF1D00531103 /* WeatherController */ = {
+			isa = PBXGroup;
+			children = (
+				AFE205CF2125D61600249CC6 /* WeatherViewController.swift */,
+				AFFE3C8C212D6E1200300668 /* AddNewCityViewController.swift */,
+			);
+			path = WeatherController;
+			sourceTree = "<group>";
+		};
+		AF25197D2143CF2900531103 /* TranslationController */ = {
+			isa = PBXGroup;
+			children = (
+				AF1AC71C212EE3CC00836D57 /* TranslateViewController.swift */,
+			);
+			path = TranslationController;
+			sourceTree = "<group>";
+		};
 		AFB841D1212FE44900EBD5D8 /* BaluchonTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,10 +255,9 @@
 		AFBEDA3D2105CE96009DC033 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AFBEDA2C2105CE37009DC033 /* ChangeViewController.swift */,
-				AFE205CF2125D61600249CC6 /* WeatherViewController.swift */,
-				AFFE3C8C212D6E1200300668 /* AddNewCityViewController.swift */,
-				AF1AC71C212EE3CC00836D57 /* TranslateViewController.swift */,
+				AF25197B2143CF0800531103 /* ExchangeRateController */,
+				AF25197D2143CF2900531103 /* TranslationController */,
+				AF25197C2143CF1D00531103 /* WeatherController */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,15 +275,9 @@
 		AFBEDA3F2105CEA6009DC033 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AF89F00E2109D4E90076F295 /* ChangeService.swift */,
-				AF89F010210A6C6D0076F295 /* Change.swift */,
-				AF1338F121143AF6004D60E3 /* Money.swift */,
-				AFE205D12125D68100249CC6 /* WeatherService.swift */,
-				AFE205D32125D99300249CC6 /* Weather.swift */,
-				AF1AC716212EAAB500836D57 /* TranslateService.swift */,
-				AF1AC718212EAAD800836D57 /* Translate.swift */,
-				AF1AC71A212EAAE900836D57 /* Language.swift */,
-				AFD0CE8D213696B200CDBF79 /* NetworkManager.swift */,
+				AF2519782143CE6900531103 /* ExchangeRate */,
+				AF2519792143CEA100531103 /* Translation */,
+				AF25197A2143CEC500531103 /* Weather */,
 				AFD0CE972136ED7500CDBF79 /* Networking */,
 			);
 			path = Model;
@@ -253,6 +300,7 @@
 				AFCDAAEB2135473000981803 /* HTTPMethod.swift */,
 				AFCDAAED213547BC00981803 /* HTTPTask.swift */,
 				AFCDAAF72135595700981803 /* NetworkRouter.swift */,
+				AFD0CE8D213696B200CDBF79 /* NetworkManager.swift */,
 				AFCDAAF921357E9800981803 /* Router.swift */,
 			);
 			path = Service;
