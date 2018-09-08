@@ -86,3 +86,5 @@ Ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhait
 Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
 
 la modification d'un textField entrainera instantanément le calcul et l'affichage du résultat dans le deuxième textField.
+
+![démonstration du bonus](ImagesReadme/tauxdechange.gif)
