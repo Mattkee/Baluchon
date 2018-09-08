@@ -77,6 +77,12 @@ par le biais d'Action, elle même appelera la méthode "*changeMoney*" de "*Chan
         return result
     }
 
-Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaies désigné par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*" et ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhaitée faire le calcul.
-    
+Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaies désigné par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*"
 
+Ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhaitée faire le calcul.
+
+>>  2. la conversion de monnaies peut ce faire de n’importe quelle monnaie à n’importe quelle monnaie parmi celles proposées
+
+Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
+
+la modification d'un textField entrainera instantanément le calcul et l'affichage du résultat dans le deuxième textField.
