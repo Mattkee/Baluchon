@@ -83,8 +83,12 @@ Ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhait
 
 >>  2. la conversion de monnaies peut ce faire de n’importe quelle monnaie à n’importe quelle monnaie parmi celles proposées
 
-Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
+Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués la conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
 
 la modification d'un textField entrainera instantanément le calcul et l'affichage du résultat dans le deuxième textField.
+
+le changement d'un pickerViews changera instantanément la valeur calculé dans le textField opposé.
+
+> Voici une animation présentant ce bonus.
 
 ![démonstration du bonus](ImagesReadme/tauxdechange.gif)
