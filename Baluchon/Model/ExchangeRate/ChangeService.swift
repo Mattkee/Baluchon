@@ -35,14 +35,17 @@ extension ChangeService {
 
         let abreviationOne = searchMoney(moneyName: moneyToConvertName, moneyData: money)
         let abreviationTwo = searchMoney(moneyName: moneyConvertedName, moneyData: money)
-        let moneySelectedValueForOneEuro = change.rates[abreviationOne]!
-        let currencyWeNeed = change.rates[abreviationTwo]!
-
-        var number: Double
-        guard (Double(valueNeedToConvert) != nil) else {
+        guard let moneySelectedValueForOneEuro = change.rates[abreviationOne] else {
             return 0
         }
-        number = Double(valueNeedToConvert)!
+        guard let currencyWeNeed = change.rates[abreviationTwo] else {
+            return 0
+        }
+        var number: Double
+        guard (Double(valueNeedToConvert) != nil), let value = Double(valueNeedToConvert) else {
+            return 0
+        }
+        number = value
         var result : Double
         if moneySelectedValueForOneEuro == 1.0 {
             result = number * currencyWeNeed

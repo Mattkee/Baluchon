@@ -50,20 +50,28 @@ extension ChangeViewController {
         changeService.getChange { (error, change, money) in
             self.toggleActivityIndicator(shown: false)
             guard error == nil else {
-                self.showAlert(title: "Echec Appel réseau", message: error!)
+                guard let error = error else {
+                    return
+                }
+                self.showAlert(title: "Echec Appel réseau", message: error)
                 return
             }
             self.money = money
             self.change = change
-            
-            for (_, name) in (self.money?.symbols)! {
+            guard let symbols = self.money?.symbols else {
+                return
+            }
+            for (_, name) in symbols {
                 self.nameList.append(name)
             }
             self.nameList.sort()
             self.pickerViewMoneyToConvert.reloadComponent(0)
             self.pickerViewConvertedMoney.reloadComponent(0)
-            self.pickerViewMoneyToConvert.selectRow(self.nameList.index(of: "Euro")!, inComponent: 0, animated: false)
-            self.pickerViewConvertedMoney.selectRow(self.nameList.index(of: "United States Dollar")!, inComponent: 0, animated: false)
+            guard let euro = self.nameList.index(of: "Euro"), let usd = self.nameList.index(of: "United States Dollar") else {
+                return
+            }
+            self.pickerViewMoneyToConvert.selectRow(euro, inComponent: 0, animated: false)
+            self.pickerViewConvertedMoney.selectRow(usd, inComponent: 0, animated: false)
         }
     }
 
@@ -78,10 +86,10 @@ extension ChangeViewController {
 // MARK: - Display preparation and result
 extension ChangeViewController {
     private func changeValueText(_ moneyToConvertName: String, _ moneyConvertedName: String, _ sender: UITextField) {
-        guard sender.hasText else {
+        guard sender.hasText, let text = sender.text else {
             return
         }
-        let result = changeService.changeMoney(moneyToConvertName, moneyConvertedName, sender.text!, change!, money!)
+        let result = changeService.changeMoney(moneyToConvertName, moneyConvertedName, text, change!, money!)
         let textField : UITextField
         if sender == convertedCurrency {
             textField = currencyToConvert

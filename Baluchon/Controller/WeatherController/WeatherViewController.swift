@@ -29,7 +29,10 @@ extension WeatherViewController {
         
         weatherService.getWeather(city: allCity) { (error, weather) in
             guard error == nil else {
-                self.showAlert(title: "Echec Appel réseau", message: error!)
+                guard let error = error else {
+                    return
+                }
+                self.showAlert(title: "Echec Appel réseau", message: error)
                 return
             }
             WeatherViewController.weather = weather
@@ -61,9 +64,12 @@ extension WeatherViewController: UITableViewDataSource {
         guard let city = WeatherViewController.weather?.query.results.channel[indexPath.row] else {
             return UITableViewCell()
         }
-        let icon = UIImage(named: weatherService.setImage(city.item.condition.code))
+
+        guard let icon = UIImage(named: weatherService.setImage(city.item.condition.code)) else {
+            return UITableViewCell()
+        }
         
-        cell.configure(withIcon: icon!, cityName: city.location.city, temperature: "\(city.item.condition.temp)°C")
+        cell.configure(withIcon: icon, cityName: city.location.city, temperature: "\(city.item.condition.temp)°C")
         return cell
     }
 }

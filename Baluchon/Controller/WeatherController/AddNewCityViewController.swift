@@ -33,7 +33,10 @@ extension AddNewCityViewController {
         city.append(sender.text!)
         weaterService.getWeather(city: city) { (error, weather) in
             guard error == nil else {
-                self.showAlert(title: "Echec Appel réseau", message: error!)
+                guard let error = error else {
+                    return
+                }
+                self.showAlert(title: "Echec Appel réseau", message: error)
                 return
             }
             self.weather = weather

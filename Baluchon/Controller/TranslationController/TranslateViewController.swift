@@ -34,7 +34,10 @@ class TranslateViewController: UIViewController {
         selectedPickerText()
         translateService.getTranslate(textToTranslate: textToTranslate.text, languageToTranslate: languageToTranslate, languageTranslated: languageTranslated) { (error, translate) in
             guard error == nil else {
-                self.showAlert(title: "Echec Appel réseau", message: error!)
+                guard let error = error else {
+                    return
+                }
+                self.showAlert(title: "Echec Appel réseau", message: error)
                 return
             }
             self.textTranslated.text = translate?.data.translations[0].translatedText
@@ -52,19 +55,29 @@ extension TranslateViewController {
                 return
             }
             self.language = language
-            for language in (language?.data.languages)! {
+            guard let languages = language?.data.languages else {
+                return
+            }
+            for language in languages {
                 self.languageList.append(language.name)
             }
             self.languageList.sort()
             self.textToTranslatePicker.reloadComponent(0)
             self.textTranslatedPicker.reloadComponent(0)
-            self.textToTranslatePicker.selectRow(self.languageList.index(of: "Français")!, inComponent: 0, animated: false)
-            self.textTranslatedPicker.selectRow(self.languageList.index(of: "Anglais")!, inComponent: 0, animated: false)
+
+            guard let french = self.languageList.index(of: "Français"), let english = self.languageList.index(of: "Anglais") else {
+                return
+            }
+            self.textToTranslatePicker.selectRow(french, inComponent: 0, animated: false)
+            self.textTranslatedPicker.selectRow(english, inComponent: 0, animated: false)
         }
     }
 
     private func selectedPickerText() {
-        for language in (language?.data.languages)! {
+        guard let languages = language?.data.languages else {
+            return
+        }
+        for language in languages {
             if language.name == languageList[textToTranslatePicker.selectedRow(inComponent: 0)] {
                 languageToTranslate = language.language
             } else if language.name == languageList[textTranslatedPicker.selectedRow(inComponent: 0)] {
