@@ -3,19 +3,19 @@
 ### L'application Baluchon
 Baluchon est un sac de voyage virtuel avec des outils indispensables pour les voyages à l'étranger.
 
-**l'application se compose de trois fonctionnalitées principales :**
+**l'application se compose de trois fonctionnalités principales :**
 * Le taux de change
 * La traduction
 * La météo
 ### Les Bonus
-**Plusieurs fonctionnalitées bonus ont été rajoutées à l'application Baluchon :**
+**Plusieurs fonctionnalités bonus ont été rajoutées à l'application Baluchon :**
 
 > 1. La conversion de monnaies dans de nombreuses devises
 > 2. la conversion de monnaies peut ce faire de n’importe quelle monnaie à n’importe quelle monnaie parmi celles proposées
 > 3. la possibilité d’afficher la météo de nombreuses villes dans le monde.
-> 4. la possibilité d’ajouter ou d’enlever n’importe quelles villes de notre affichage
+> 4. la possibilité d’ajouter ou d’enlever n’importe laquelle des villes de notre affichage
 > 5. Un sélecteur pour échanger la langue d'origine et la langue de destination pour la traduction.
-> 6. la possibilité de traduire dans n’importe quelles langues proposées.
+> 6. la possibilité de traduire dans n’importe quelles langue proposée.
 
 ### Implémentation des Bonus
 
@@ -25,11 +25,11 @@ afin de pouvoir convertir les monnaies dans de nombreuses devises, nous allons r
 
     let change = object as? Change
 
-avant de pouvoir utiliser cet objet nous allons chaîner notre appel réseau avec un deuxième appel pour récupérer toujours sur fixer.io avec une deuxième API la liste des monnaies dans un objet et de même que pour les taux créer une propriété appelée "*money*".
+avant de pouvoir utiliser cet objet nous allons chaîner notre appel réseau avec un deuxième appel pour récupérer toujours sur fixer.io avec une deuxième API la liste des monnaies dans un objet et de même que pour les taux, créer une propriété appelée "*money*".
 
     let money = object as? Money
 
-Ensuite nous aurons plus qu'à passer les deux objet dans notre callback à notre controller, voici ce que ça donne dans "*ChangeService*" :
+Ensuite nous n'aurons plus qu'à passer les deux objets dans notre callback à notre controller, voici ce que ça donne dans "*ChangeService*" :
 
     func getChange(callback: @escaping (String?, Change?, Money?) -> Void) {
         changeRouter.request(changeAPI, changeSession, Change.self) { (error, object) in
@@ -78,18 +78,18 @@ par le biais d'Action, elle même appelera la méthode "*changeMoney*" de "*Chan
         return result
     }
 
-Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaies désigné par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*"
+Cette méthode comme on peut le voir ci-dessus va d'abord retrouver l'abréviation de la monnaie désignée par l'utilisateur pour rechercher le taux de celle ci dans l'objet "*change*"
 
-Ensuite selon le choix de la monnaie d'origine et le choix de la dévise souhaitée, cette méthode va faire le calcul.
+Ensuite selon le choix de la monnaie d'origine et le choix de la devise souhaitée, cette méthode va faire le calcul.
 
 
 >>  2. la conversion de monnaies peut ce faire de n’importe quelle monnaie à n’importe quelle monnaie parmi celles proposées
 
-Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédement expliqués la conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
+Ce bonus est principalement géré par les pickersViews et les textFields qui vont permettre avec les objets et méthodes précédemment expliqués la conversion de monnaies dans n'importe quel sens voulu par l'utilisateur.
 
 la modification d'un textField entrainera instantanément le calcul et l'affichage du résultat dans le deuxième textField.
 
-le changement d'un pickerViews changera instantanément la valeur calculé dans le textField opposé.
+le changement d'un pickerViews changera instantanément la valeur calculée dans le textField opposé.
 
 > Voici une animation présentant ce bonus.
 
@@ -98,11 +98,11 @@ le changement d'un pickerViews changera instantanément la valeur calculé dans 
 
 >> 3. la possibilité d’afficher la météo de nombreuses villes dans le monde.
 
-Cette fonctionnalités va nous permettre par le biais d'une action dans le controller "*AddNewCityViewController*" de lancer un appel réseau et d'obtenir la météo d'une ville en particulier choisie par l'utilisateur.
+Cette fonctionnalité va nous permettre par le biais d'une action dans le controller "*AddNewCityViewController*" de lancer un appel réseau et d'obtenir la météo d'une ville en particulier choisie par l'utilisateur.
 
 ![recherche de la météo à Vannes](ImagesReadme/addNewCity.png)
 
->> 4. la possibilité d’ajouter ou d’enlever n’importe quelles villes de notre affichage
+>> 4. la possibilité d’ajouter ou d’enlever n’importe laquelle des villes de notre affichage
 
 Cette fonctionnalité consiste en l'ajout d'une tableView qui va permettre l'affichage des villes choisies et va permettre la suppression de celles que l'utilisateur ne voudrait plus.
 
@@ -137,14 +137,14 @@ ces pickerViews sont alimentés par un appel réseau via une API de Google qui v
         }
     }
 
-L'objet "*language*" renvoyé par le completionHandler va permettre de créer un tableau avec le nom des langues disponible pour la traduction.
+L'objet "*language*" renvoyé par le completionHandler va permettre de créer un tableau avec le nom des langues disponibles pour la traduction.
 
 
->> 6. la possibilité de traduire dans n’importe quelles langues proposées.
+>> 6. la possibilité de traduire dans n’importe quelle langue proposée.
 
 Avec le choix des langues effectuées par le biais des pickerViews, l'appel réseau va pouvoir préciser dans la requête la langue d'origine et la langue de destination et ainsi permettre la traduction dans les langues choisies.
 
-la création de cette partie de la requête se fera via une méthode renseigné par le viewController via des paramètres.
+la création de cette partie de la requête se fera via une méthode renseignée par le viewController via des paramètres.
 
 **voici comment va se créer la partie de la requête concernant ce choix de langues :**
 
