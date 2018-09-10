@@ -37,7 +37,7 @@ class TranslateViewController: UIViewController {
                 guard let error = error else {
                     return
                 }
-                self.showAlert(title: "Echec Appel réseau", message: error)
+                self.showAlert(title: Constant.titleAlert, message: error)
                 return
             }
             self.textTranslated.text = translate?.data.translations[0].translatedText
@@ -51,7 +51,7 @@ extension TranslateViewController {
     private func refresh() {
         translateService.getLanguage { (error, language) in
             guard error == nil else {
-                self.showAlert(title: "Echec Appel réseau", message: error!)
+                self.showAlert(title: Constant.titleAlert, message: error!)
                 return
             }
             self.language = language

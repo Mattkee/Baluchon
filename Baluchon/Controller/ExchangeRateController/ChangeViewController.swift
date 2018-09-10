@@ -53,7 +53,7 @@ extension ChangeViewController {
                 guard let error = error else {
                     return
                 }
-                self.showAlert(title: "Echec Appel réseau", message: error)
+                self.showAlert(title: Constant.titleAlert, message: error)
                 return
             }
             self.money = money

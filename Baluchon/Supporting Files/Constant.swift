@@ -9,6 +9,9 @@
 import Foundation
 
 struct Constant {
+    // MARK: - General Constant
+    static let titleAlert = "Echec Appel réseau"
+
     // MARK: - Change Constant
     static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
 
