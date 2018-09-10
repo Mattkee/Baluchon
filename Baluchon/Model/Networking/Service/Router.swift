@@ -76,7 +76,7 @@ class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
         switch result {
         case .success :
             dataManagement(data, object) { (error, object) in
-                completion(nil, object)
+                completion(error, object)
             }
         case . failure(let networkFailureError) :
             print(networkFailureError)
