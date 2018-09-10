@@ -64,7 +64,6 @@ extension WeatherViewController: UITableViewDataSource {
         guard let city = WeatherViewController.weather?.query.results.channel[indexPath.row] else {
             return UITableViewCell()
         }
-
         guard let icon = UIImage(named: weatherService.setImage(city.item.condition.code)) else {
             return UITableViewCell()
         }

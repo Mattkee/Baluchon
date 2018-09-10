@@ -42,16 +42,26 @@ extension AddNewCityViewController {
             self.weather = weather
             
             self.cityName.text = weather?.query.results.channel[0].location.city
-            let temperature = (weather?.query.results.channel[0].item.condition.temp)!
+
+            guard let temperature = (weather?.query.results.channel[0].item.condition.temp) else {
+                return
+            }
             self.cityTemp.text = "\(temperature)°C"
-            self.weatherIcon.image = UIImage(named: self.weaterService.setImage((weather?.query.results.channel[0].item.condition.code)!))
+
+            guard let imageCode = weather?.query.results.channel[0].item.condition.code else {
+                return
+            }
+            self.weatherIcon.image = UIImage(named: self.weaterService.setImage(imageCode))
             self.cityStackView.isHidden = false
             self.addNewCityButton.isHidden = false
         }
     }
 
     @IBAction func addNewCity(_ sender: UIButton) {
-        Constant.allCity.append(cityName.text!)
+        guard let city = cityName.text else {
+            return
+        }
+        Constant.allCity.append(city)
 
         navigationController?.popViewController(animated: true)
     }

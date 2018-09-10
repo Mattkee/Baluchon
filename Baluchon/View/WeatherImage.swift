@@ -14,6 +14,11 @@ class WeatherImage: UITableViewCell {
     @IBOutlet weak var temp: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
     // MARK: - Methods
     func configure(withIcon: UIImage, cityName: String, temperature: String) {
         weatherIcon.image = withIcon
