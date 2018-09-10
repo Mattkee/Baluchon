@@ -8,51 +8,30 @@
 
 import Foundation
 
-class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
+class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
     private var task: URLSessionTask?
     let networkManager = NetworkManager()
 
-    func request(_ route: EndPoint,_ session: URLSession,_ objet: Objet.Type, completion: @escaping NetworkRouterCompletion) {
+    func request(_ route: EndPoint,_ session: URLSession,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
 
         do {
             let request = try self.buildRequest(from: route)
-            task = session.dataTask(with: request, completionHandler: { data, response, error in
+            task = session.dataTask(with: request) { (data, response, error) in
                 guard error == nil else {
                     print("Please check your network connection.")
                     completion(CustomerDisplayError.network.rawValue, nil)
                     return
                 }
-                guard let response = response as? HTTPURLResponse else {
-                    print("Please check check your API documentation")
-                    completion(CustomerDisplayError.update.rawValue, nil)
-                    return
+                self.responseManagement(data, response, object) { (error, object) in
+                    completion(error, object)
                 }
-
-                let result = self.networkManager.handleNetworkResponse(response)
-                switch result {
-                case .success :
-                    guard let responseData = data else {
-                        print(NetworkResponse.noData.rawValue)
-                        completion(CustomerDisplayError.update.rawValue, nil)
-                        return
-                    }
-                    guard let objet = try? JSONDecoder().decode(objet.self, from: responseData) else {
-                        print(NetworkResponse.unableToDecode.rawValue)
-                        completion(CustomerDisplayError.update.rawValue, nil)
-                        return
-                    }
-                    completion(nil, objet)
-                case . failure(let networkFailureError) :
-                    print(networkFailureError)
-                    completion(CustomerDisplayError.update.rawValue, nil)
-                    return
-                }
-            })
+            }
         } catch {
             completion(CustomerDisplayError.update.rawValue, nil)
         }
         self.task?.resume()
     }
+
     func cancel() {
         self.task?.cancel()
     }
@@ -84,5 +63,39 @@ class Router<EndPoint: EndPointType, Objet: Decodable>: NetworkRouter {
         } catch {
             throw error
         }
+    }
+
+    fileprivate func responseManagement(_ data: Data?,_ response: URLResponse?,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
+
+        guard let response = response as? HTTPURLResponse else {
+            print("Please check check your API documentation")
+            completion(CustomerDisplayError.update.rawValue, nil)
+            return
+        }
+        let result = self.networkManager.handleNetworkResponse(response)
+        switch result {
+        case .success :
+            dataManagement(data, object) { (error, object) in
+                completion(nil, object)
+            }
+        case . failure(let networkFailureError) :
+            print(networkFailureError)
+            completion(CustomerDisplayError.update.rawValue, nil)
+            return
+        }
+    }
+
+    fileprivate func dataManagement(_ data: Data?,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
+        guard let responseData = data else {
+            print(NetworkResponse.noData.rawValue)
+            completion(CustomerDisplayError.update.rawValue, nil)
+            return
+        }
+        guard let object = try? JSONDecoder().decode(object.self, from: responseData) else {
+            print(NetworkResponse.unableToDecode.rawValue)
+            completion(CustomerDisplayError.update.rawValue, nil)
+            return
+        }
+        completion(nil, object)
     }
 }

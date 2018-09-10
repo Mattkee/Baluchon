@@ -8,12 +8,12 @@
 
 import Foundation
 
-public typealias NetworkRouterCompletion = (_ error: String?,_ objet: Any?)->()
+public typealias NetworkRouterCompletion = (_ error: String?,_ object: Any?)->()
 
 protocol NetworkRouter: class {
     associatedtype EndPoint: EndPointType
-    associatedtype Objet: Decodable
+    associatedtype Object: Decodable
 
-    func request(_ route: EndPoint,_ session: URLSession, _ objet: Objet.Type, completion: @escaping NetworkRouterCompletion)
+    func request(_ route: EndPoint,_ session: URLSession, _ object: Object.Type, completion: @escaping NetworkRouterCompletion)
     func cancel()
 }
