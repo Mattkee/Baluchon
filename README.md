@@ -15,7 +15,7 @@ Baluchon est un sac de voyage virtuel avec des outils indispensables pour les vo
 > 3. la possibilité d’afficher la météo de nombreuses villes dans le monde.
 > 4. la possibilité d’ajouter ou d’enlever n’importe laquelle des villes de notre affichage
 > 5. Un sélecteur pour échanger la langue d'origine et la langue de destination pour la traduction.
-> 6. la possibilité de traduire dans n’importe quelles langue proposée.
+> 6. la possibilité de traduire dans n’importe quelle langue proposée.
 
 ### Implémentation des Bonus
 
