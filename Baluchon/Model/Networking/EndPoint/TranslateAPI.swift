@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Translate API from Google
 struct TranslateAPI: EndPointType {
 
     var body = [String:String]()

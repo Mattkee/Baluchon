@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Currency API from Fixer.io
 struct ChangeAPI: EndPointType {
     
     var baseURL: URL {

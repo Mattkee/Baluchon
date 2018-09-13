@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Money API from Fixer.io
 struct MoneyAPI: EndPointType {
     private let networkManager = NetworkManager()
     var baseURL: URL {

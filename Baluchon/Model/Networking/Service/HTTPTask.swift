@@ -8,8 +8,7 @@
 
 import Foundation
 
-//public typealias HTTPHeaders = [String:String]
-
+// MARK: - Manages some type of request
 public enum HTTPTask {
     case requestParameters(bodyParameters: Parameters?, urlParameters: Parameters?)
 }

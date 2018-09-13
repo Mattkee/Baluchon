@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - API Protocol
 protocol EndPointType {
     var baseURL: URL { get }
     var path: String { get }

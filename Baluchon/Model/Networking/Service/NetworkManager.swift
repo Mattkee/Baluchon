@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - response status management.
 struct NetworkManager {
 
     func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
@@ -21,6 +22,7 @@ struct NetworkManager {
     }
 }
 
+// MARK: - administrator returning alert text
 enum NetworkResponse:String {
     case success
     case authenticationError = "You need to be authenticated first."
@@ -31,6 +33,7 @@ enum NetworkResponse:String {
     case unableToDecode = "We could not decode the response."
 }
 
+// MARK: - customer returning alert text
 enum CustomerDisplayError: String {
     case update = "Problème de mise à jour de l'application, rééssayez ou contactez le développeur"
     case network = "Votre réseau rencontre des problèmes, essayez de rafraîchir les données"

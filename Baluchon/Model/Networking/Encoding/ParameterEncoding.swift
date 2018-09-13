@@ -10,10 +10,12 @@ import Foundation
 
 public typealias Parameters = [String:Any]
 
+// MARK: - Encode Paramaters Protocol
 public protocol ParameterEncoder {
     static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
 }
 
+// MARK: - Manages Encode issues
 public enum NetworkError : String, Error {
     case parametersNil = "Parameters were nil."
     case encodingFailed = "Parameter encoding failed."

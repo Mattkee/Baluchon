@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Weather API from Yahoo
 struct WeatherAPI: EndPointType {
     var bodyText = ""
 

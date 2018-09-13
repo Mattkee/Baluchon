@@ -7,11 +7,12 @@
 //
 
 import Foundation
-
+// this class will handle network calls.
 class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
     private var task: URLSessionTask?
     let networkManager = NetworkManager()
 
+    // MARK: - Network call and returning callback
     func request(_ route: EndPoint,_ session: URLSession,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
 
         do {
@@ -36,6 +37,7 @@ class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
         self.task?.cancel()
     }
 
+    // MARK: - Building the URL Request.
     fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
 
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0)
@@ -52,6 +54,7 @@ class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
         }
     }
 
+    // MARK: Adding Paramaters to request
     fileprivate func configureParameters(bodyParameters: Parameters?, urlParameters: Parameters?, request: inout URLRequest) throws {
         do {
             if let bodyParameters = bodyParameters {
@@ -65,6 +68,7 @@ class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
         }
     }
 
+    // MARK: - Manages received Response.
     fileprivate func responseManagement(_ data: Data?,_ response: URLResponse?,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
 
         guard let response = response as? HTTPURLResponse else {
@@ -85,6 +89,7 @@ class Router<EndPoint: EndPointType, Object: Decodable>: NetworkRouter {
         }
     }
 
+    // MARK: - Manages received Data.
     fileprivate func dataManagement(_ data: Data?,_ object: Object.Type, completion: @escaping NetworkRouterCompletion) {
         guard let responseData = data else {
             print(NetworkResponse.noData.rawValue)

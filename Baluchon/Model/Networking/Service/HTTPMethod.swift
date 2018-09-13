@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Manages some type of HTTPMethod
 public enum HTTPMethod : String {
     case get   = "GET"
     case post  = "POST"

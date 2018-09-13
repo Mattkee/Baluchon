@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Manages JSON Parameters.
 public struct JSONParameterEncoder: ParameterEncoder {
     public static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         do {
