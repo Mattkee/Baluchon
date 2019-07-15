@@ -13,10 +13,10 @@ struct Constant {
     static let titleAlert = "Echec Appel réseau"
 
     // MARK: - Change Constant
-    static let fixerAPIKey = "d08ec4ef9bde66e8a89fafb3527c76f7"
+    static let fixerAPIKey = "********" // your API Key
 
     // MARK: - Translate Constant
-    static let googleAPIKey = "AIzaSyBsL5HR_zdFcFdqZWSTyHhu--xxMrI-gCw"
+    static let googleAPIKey = "*******" // your API Key
 
     // MARK: - Weather Constant
     static var allCity = ["New York","Quimper","Nantes"]
