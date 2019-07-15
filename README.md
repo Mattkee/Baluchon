@@ -1,5 +1,5 @@
 #  Projet 9
-## Les Bonus du Baluchon
+
 ### L'application Baluchon
 Baluchon est un sac de voyage virtuel avec des outils indispensables pour les voyages à l'étranger.
 
@@ -16,6 +16,8 @@ Baluchon est un sac de voyage virtuel avec des outils indispensables pour les vo
 > 4. la possibilité d’ajouter ou d’enlever n’importe laquelle des villes de notre affichage
 > 5. Un sélecteur pour échanger la langue d'origine et la langue de destination pour la traduction.
 > 6. la possibilité de traduire dans n’importe quelle langue proposée.
+
+**Attention pensez à renseigner vos clés pour les API Google et Fixer dans le fichier Constant lors de l'installation**
 
 ### Implémentation des Bonus
 
