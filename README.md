@@ -1,4 +1,4 @@
-#  Projet 9
+#  Baluchon
 
 ### L'application Baluchon
 Baluchon est un sac de voyage virtuel avec des outils indispensables pour les voyages à l'étranger.
